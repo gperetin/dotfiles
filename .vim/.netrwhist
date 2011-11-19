@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/Users/goranperetin/dev/work/twitter_graphs'
+let g:netrw_dirhist_2='/Users/goranperetin/dev/personal/memberApp'
+let g:netrw_dirhist_3='/home/goran/dev/paba/dms/config'
+let g:netrw_dirhist_4='/home/goran/dev/paba/ecollection/.git'
+let g:netrw_dirhist_5='/home/goran/dev/paba/ecollection/ecollection'
+let g:netrw_dirhist_6='/home/goran/dev/paba/ecollection/sync'
+let g:netrw_dirhist_7='/etc/rc.d'
+let g:netrw_dirhist_8='/home/goran/dev/paba/ecorporate/app/settings'
