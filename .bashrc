@@ -100,15 +100,9 @@ alias ww="git checkout master"
 alias gp="git pull"
 alias gc="git commit"
 alias go="git checkout"
-alias ptest="ssh root@197.100.0.38"
-alias pprod="ssh root@192.168.5.80"
 alias i="ipython"
 
-set -o vi
-
-alias large="ssh goran@91.203.212.49"
-alias small1="ssh goran@91.226.88.115" 
-alias webs="ssh goran@91.203.212.31"
+set -o vi1
 
 export WORKON_HOME=~/dev/envs
 source virtualenvwrapper.sh
