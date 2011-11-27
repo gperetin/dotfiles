@@ -25,6 +25,7 @@ set showbreak=↪
 set fillchars=diff:⣿
 set shiftround
 set title
+set history=1000
 
 " Make backspace and cursor keys wrap accordingly"
 set whichwrap+=<,>,h,l
@@ -114,7 +115,7 @@ inoremap <c-e> <esc>A
 
 syntax enable
 
-set cursorline " Commented out due to poor performance
+set cursorline 
 
 " ----------- Folding -------------
 set foldlevelstart=0
@@ -148,8 +149,8 @@ inoremap # X<BS>#
 " Font
 if has("gui_running")
     " set guifont=Droid\ Sans\ Mono\ Slashed\ 12
-    set guifont=Inconsolata-g\ 10
-    set linespace=1
+    set guifont=Inconsolata-g\ 11
+    set linespace=0
     set go-=r
     set go-=R
     set go-=l
@@ -190,6 +191,7 @@ let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
 
 " Faster Esc
 inoremap jk <esc>"
+imap <c-c>f <esc>
 
 " Restore file position
 function! ResCur()
@@ -337,3 +339,8 @@ function! PulseCursorLine()
 endfunction
 
 " "}}}"
+
+" Keep search matches in the middle of the window and pulse the line when moving
+" " to them.
+nnoremap n nzzzv:call PulseCursorLine()<cr>
+nnoremap N Nzzzv:call PulseCursorLine()<cr>
