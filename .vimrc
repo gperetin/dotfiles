@@ -164,6 +164,10 @@ if has("gui_running")
     set guicursor+=v:block-vCursor-blinkon0
     set guicursor+=i-ci:ver20-iCursor"
     set fillchars+=vert:│
+
+    if has("gui_macvim")
+        set guifont=Inconsolata-g:h14
+    end
 endif
 
 
