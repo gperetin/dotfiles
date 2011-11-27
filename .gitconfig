@@ -1,0 +1,11 @@
+[user]
+	name = Goran Peretin
+	email = goran.peretin@gmail.com
+[alias]
+    co = checkout
+[color]
+    ui=auto
+[color "status"]
+    added=yellow
+    changed=green
+    untracked=cyan
