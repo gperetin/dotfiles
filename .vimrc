@@ -195,7 +195,7 @@ let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o$', 'db.db']
 
 " Faster Esc
-inoremap jk <esc>"
+inoremap jk <c-[>
 imap <c-c>f <esc>
 
 " Restore file position
