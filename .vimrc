@@ -55,7 +55,8 @@ set colorcolumn=+1
 
 syntax on
 set background=dark
-colorscheme molokai
+" colorscheme molokai
+colorscheme grb256
 
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'"
