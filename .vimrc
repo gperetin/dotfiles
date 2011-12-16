@@ -349,3 +349,6 @@ endfunction
 " " to them.
 nnoremap n nzzzv:call PulseCursorLine()<cr>
 nnoremap N Nzzzv:call PulseCursorLine()<cr>
+
+
+highlight ColorColumn guibg=#222222
