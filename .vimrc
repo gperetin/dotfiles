@@ -150,7 +150,7 @@ inoremap # X<BS>#
 " Font
 if has("gui_running")
     " set guifont=Droid\ Sans\ Mono\ Slashed\ 12
-    set guifont=Inconsolata-g\ 11
+    set guifont=Inconsolata-g\ 12
     set linespace=0
     set go-=r
     set go-=R
