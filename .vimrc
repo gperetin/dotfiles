@@ -240,13 +240,6 @@ augroup ft_html
     au FileType jinja,htmldjango inoremap <buffer> <c-f> {{<space><space>}}<left><left><left>
 augroup END
 
-augroup ft_javascript
-    au!
-
-    au FileType javascript setlocal foldmethod=marker
-    au FileType javascript setlocal foldmarker={,}
-augroup END
-
 augroup ft_markdown
     au!
 
