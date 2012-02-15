@@ -46,12 +46,15 @@ set smarttab
 set shiftwidth=4
 set softtabstop=4
 set wrap
-set textwidth=80
+set textwidth=100
 set formatoptions=qrn1
 set expandtab
 set backspace=start,indent
 set backspace=2
 set colorcolumn=+1
+
+set noeb vb t_vb=
+au GUIEnter * set vb t_vb=
 
 syntax on
 set background=dark
@@ -163,7 +166,7 @@ if has("gui_running")
     " Different cursors for different modes.
     set guicursor=n-c:block-Cursor-blinkon0
     set guicursor+=v:block-vCursor-blinkon0
-    set guicursor+=i-ci:ver20-iCursor"
+    set guicursor+=i-ci:ver20-Cursor"
     set fillchars+=vert:│
 
     if has("gui_macvim")
@@ -197,6 +200,9 @@ let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
 " Faster Esc
 inoremap jk <c-[>
 imap <c-c>f <esc>
+
+" Braces newline
+imap <C-Return> <CR><CR><C-o><k><Tab>
 
 " Restore file position
 function! ResCur()
