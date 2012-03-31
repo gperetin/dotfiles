@@ -1,3 +1,4 @@
+# This is stolen from garyberndhardt and modified
 setopt promptsubst
 autoload -U promptinit
 promptinit
