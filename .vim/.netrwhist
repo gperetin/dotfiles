@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/home/goran/dev/paba/edocument/migrations'
+let g:netrw_dirhist_2='/home/goran/dev/personal/seamon/server'
+let g:netrw_dirhist_3='/home/goran/dev/play/imports/asd'
+let g:netrw_dirhist_4='/home/goran/dev/personal/flask-testing/docs'
+let g:netrw_dirhist_5='/home/goran/.zsh'
+let g:netrw_dirhist_6='/home/goran/bin'
