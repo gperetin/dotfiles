@@ -1,353 +1,216 @@
-filetype off
+" Most of this is shamelessly stolen from Gary Bernhardt
+" I removed all Ruby stuff and added some Python stuff
+" Gary's .vimrc is at https://github.com/garybernhardt/dotfiles
 
-" Activate pathogen
-call pathogen#infect()
-call pathogen#helptags()
+call pathogen#runtime_append_all_bundles()
 
-filetype plugin indent on
-
-" -------- BASIC ---------
-set nocompatible    " no vi compatibility
-set ruler           " Show position in file
-set number          " Show line numbers
-set encoding=utf-8
-set autoindent
-set showmode
-set showcmd
+set nocompatible
+" Allow backgrounding buffers without writing them, and remember marks/undo
 set hidden
-set ttyfast
-set list
-set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
-set shell=/bin/bash
-set lazyredraw
-set matchtime=3
-set showbreak=↪
-set fillchars=diff:⣿
-set shiftround
-set title
-set history=1000
+" Remember more commands and search history
+set history=10000
 
-" Make backspace and cursor keys wrap accordingly"
-set whichwrap+=<,>,h,l
+" Make tab completion for files/buffers act like bash
+set wildmenu
 
-" resize splits
-au VimResized * exe "normal! \<c-w>="
-
-" Statr in 256 color mode
-set t_Co=256
-
-set novisualbell  " No blinking .
-set noerrorbells  " No noise.
-set laststatus=2  " Always show status line.
-
-" Use 4 spaces for tabs, turn on automatic indenting
-set tabstop=4
-set smarttab
-set shiftwidth=4
-set softtabstop=4
-set wrap
-set textwidth=100
-set formatoptions=qrn1
-set expandtab
-set backspace=start,indent
-set backspace=2
-set colorcolumn=+1
-
-set noeb vb t_vb=
-au GUIEnter * set vb t_vb=
-
-syntax on
-set background=dark
-" colorscheme molokai
-colorscheme grb256
-
-" Highlight VCS conflict markers
-match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'"
-
-let mapleader = ","
-
-" Statusline
-augroup ft_statuslinecolor
-    au!
-
-    au InsertEnter * hi StatusLine ctermfg=196 guifg=#FF3145
-    au InsertLeave * hi StatusLine ctermfg=130 guifg=#CD5907
-augroup END
-
-set statusline=%f    " Path.
-set statusline+=%m   " Modified flag.
-set statusline+=%r   " Readonly flag.
-set statusline+=%w   " Preview window flag.
-
-set statusline+=\    " Space.
-
-set statusline+=%#redbar#                " Highlight the following as a warning.
-"set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
-set statusline+=%*                           " Reset highlighting.
-
-set statusline+=%=   " Right align.
-
-" File format, encoding and type.  Ex: "(unix/utf-8/python)"
-set statusline+=(
-set statusline+=%{&ff}                        " Format (unix/DOS).
-set statusline+=/
-set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding(utf-8).
-set statusline+=/
-set statusline+=%{&ft}                        " Type (python).
-set statusline+=")
-
-" Line and column position and counts.
-set statusline+=\ (line\ %l\/%L,\ col\ %03c))"
-
-
-" Turn on highlighted search and syntax highlighting
-set hlsearch
+" Make searches case-sensitive only if they contain upper-case characters
 set ignorecase
 set smartcase
-set showmatch
-set incsearch
+
+" Keep more context when scrolling off the end of a buffer
 set scrolloff=3
-set sidescroll=1
-set sidescrolloff=10
-set virtualedit+=block
 
-noremap <leader><space> :noh<cr>:call clearmatches()<cr>
+" Store temporary files in a central spot
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
-noremap H ^
-inoremap <c-a> <esc>I
-inoremap <c-e> <esc>A
+" Allow backspacing over everything in insert mode
+set backspace=indent,eol,start
 
-syntax enable
+" Basic configs
+set expandtab
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+set incsearch
+set cursorline
+set autoindent
+set laststatus=2
+set showmatch
+set switchbuf=useopen
+set cmdheight=2
+set nonumber
+set showtabline=2
+set winwidth=79
+set shell=bash
+let mapleader=","
+" Highlighting search
+set hls
+" Enable file type detection.
+filetype plugin indent on
 
-set cursorline 
+syntax on
 
-" ----------- Folding -------------
-set foldlevelstart=0
-nnoremap <Space> za
-vnoremap <Space> za
-nnoremap <leader>z zMzvzz
+" System clipboard
+map <leader>y "*y
+" Can't be bothered to understand the difference between ESC and <c-c> in
+" insert mode
+imap <c-c> <esc>
+" Close buffer
+map qq :bd<cr>
+" Reeealy should get used to this...
+inoremap jk <esc>
 
-function! MyFoldText() " {{{
-    let line = getline(v:foldstart)
+" Custom autocmds
+augroup vimrcEx
+    autocmd!
+    " For all text files set 'textwidth' to 78 characters
+    autocmd FileType text setlocal textwidth=78
 
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-    let foldedlinecount = v:foldend - v:foldstart
+    " When editing a file, always jump to the last known cursor position
+    autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
 
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
+    autocmd FileType python,javascript set sw=4 sts=4 et
+    autocmd FileType ruby,haml,eruby,yaml,html,jade set ai sw=2 sts=2 et
 
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
-endfunction " }}}
-set foldtext=MyFoldText()"
+    autocmd! BufRead, BufNewFile *.jade setfiletype jade
 
-" Disable unused keys
-noremap  <F1> :set invfullscreen<CR>
-inoremap <F1> <ESC>:set invfullscreen<CR>a
-nnoremap K <nop>
-inoremap # X<BS>#
-
-" Font
-if has("gui_running")
-    " set guifont=Droid\ Sans\ Mono\ Slashed\ 12
-    set guifont=Inconsolata-g\ 12
-    set linespace=0
-    set go-=r
-    set go-=R
-    set go-=l
-    set go-=L
-    set go-=t
-    set go-=T
-    set go-=m
-    set guioptions=aiA
-    " Different cursors for different modes.
-    set guicursor=n-c:block-Cursor-blinkon0
-    set guicursor+=v:block-vCursor-blinkon0
-    set guicursor+=i-ci:ver20-Cursor"
-    set fillchars+=vert:│
-
-    if has("gui_macvim")
-        set guifont=Inconsolata-g:h14
-    end
-endif
-
-
-" Disable cursor blinking
-set guicursor+=a:blinkon0
-
-" Set leader to comma
-
-" ########### NERDTree ############
-noremap  <F2> :NERDTreeToggle<cr>
-inoremap <F2> <esc>:NERDTreeToggle<cr>
-au Filetype nerdtree setlocal nolist
-
-
-let g:CommandTMaxHeight=20
-
-map <C-h> :bprevious<CR>
-map <C-l> :bnext<CR>
-map qq      :bdelete<CR>
-inoremap    <S-Enter>   <esc>o
-inoremap    ii  <esc>
-
-let NERDTreeHighlightCursorline=1
-let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o$', 'db.db']
-
-" Faster Esc
-inoremap jk <c-[>
-imap <c-c>f <esc>
-
-" Braces newline
-imap <C-Return> <CR><CR><C-o><k><Tab>
-
-" Restore file position
-function! ResCur()
-  if line("'\"") <= line("$")
-    normal! g`"
-    return 1
-  endif
-endfunction
-
-augroup resCur
-  autocmd!
-  autocmd BufWinEnter * call ResCur()
+    autocmd BufRead *.mkd set ai formatoptions=tcroqn2 comments=n:&gt;
+    autocmd BufRead *.markdown set ai formatoptions=tcroqn2 comments=n:&gt;
 augroup END
 
-set wildignore+=*.pyc,*.o,*.git,.hg.svn
+" Set the color scheme
+:set t_Co=256
+:set background=dark
+:color grb256
 
+" Use emacs-style tab completion when selecting files, etc
+set wildmode=longest,list
 
-augroup ft_html
-    au!
+" Put useful info in status line
+:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+:hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 
-    au BufNewFile,BufRead *.html setlocal filetype=htmldjango
-    au FileType html,jinja,htmldjango setlocal foldmethod=manual
+" ctrlp config
+let g:ctrlp_match_window_reversed = 0
+let g:ctrlp_max_height = 10
 
-    " Use <localleader>f to fold the current tag.
-    au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>f Vatzf
-
-    " Use Shift-Return to turn this:
-    "     <tag>|</tag>
-    "
-    " into this:
-    "     <tag>
-    "         |
-    "     </tag>
-    au FileType html,jinja,htmldjango nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
-
-
-    " Django tags
-    au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
-
-    " Django variables
-    au FileType jinja,htmldjango inoremap <buffer> <c-f> {{<space><space>}}<left><left><left>
-augroup END
-
-augroup ft_markdown
-    au!
-
-    au BufNewFile,BufRead *.m*down setlocal filetype=markdown
-
-    " Use <localleader>1/2/3 to add headings.
-    au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
-    au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-
-    au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
-augroup END"
-
-augroup ft_python
-    au!
-
-    au Filetype python noremap  <buffer> <localleader>rr :RopeRename<CR>
-    au Filetype python vnoremap <buffer> <localleader>rm :RopeExtractMethod<CR>
-    au Filetype python noremap  <buffer> <localleader>ri :RopeOrganizeImports<CR>
-
-    au FileType python setlocal omnifunc=pythoncomplete#Complete
-    au FileType python setlocal define=^\s*\\(def\\\\|class\\)
-    "au FileType python compiler nosetests
-    au FileType man nnoremap <buffer> <cr> :q<cr>
-augroup END
-
-augroup ft_vim
-    au!
-
-    au FileType vim setlocal foldmethod=marker
-    au FileType help setlocal textwidth=78
-    au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
-augroup END
-
-
-let g:indentguides_state = 0
-function! IndentGuides() " {{{
-    if g:indentguides_state
-        let g:indentguides_state = 0
-        2match None
+" TAB key autocompletes or indents
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
     else
-        let g:indentguides_state = 1
-        execute '2match IndentGuides /\%(\_^\s*\)\@<=\%(\%'.(0*&sw+1).'v\|\%'.(1*&sw+1).'v\|\%'.(2*&sw+1).'v\|\%'.(3*&sw+1).'v\|\%'.(4*&sw+1).'v\|\%'.(5*&sw+1).'v\|\%'.(6*&sw+1).'v\|\%'.(7*&sw+1).'v\)\s/'
+        return "\<c-p>"
     endif
-endfunction " "}}}
-nnoremap <leader>i :call IndentGuides()<cr>"
+endfunction
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <s-tab> <c-n>
+
+" Rename current file
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'))
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <leader>n :call RenameFile()<cr>
+
+function! ExtractVariable()
+    let name = input("Variable name: ")
+    if name == ''
+        return
+    endif
+    " Enter visual mode (not sure why this is needed since we're already in
+    " visual mode anyway)
+    normal! gv
+
+    " Replace selected text with the variable name
+    exec "normal c" . name
+    " Define the variable on the line above
+    exec "normal! O" . name . " = "
+    " Paste the original selected text to be the variable value
+    normal! $p
+endfunction
+vnoremap <leader>rv :call ExtractVariable()<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Make <leader>' switch between ' and "
+nnoremap <leader>' ""yls<c-r>={'"': "'", "'": '"'}[@"]<cr><esc>
+
+map <leader>gt :CtrlPTag<cr>
+map <leader>f :CtrlP<cr>
+map <leader>F :CtrlP %%<cr>
+map <leader>b :CtrlPBuffer<cr>
+
+nnoremap <leader><leader> <c-^>
+
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+
+" Not cool using these...
+map <Left> :echo "no!"<cr>
+map <Right> :echo "no!"<cr>
+map <Up> :echo "no!"<cr>
+map <Down> :echo "no!"<cr>
+
+" Clear the search buffer when hitting return
+:nnoremap <CR> :nohlsearch<cr>
+
+" Open files that are modified in git
+function! OpenChangedFiles()
+  only " Close all windows, unless they're modified
+  let status = system('git status -s | grep "^ \?\(M\|A\)" | cut -d " " -f 3')
+  let filenames = split(status, "\n")
+  exec "edit " . filenames[0]
+  for filename in filenames[1:]
+    exec "e " . filename
+  endfor
+endfunction
+command! OpenChangedFiles :call OpenChangedFiles()
 
 
-" Pulse ------------------------------------------------------------------- {{{
-"
-function! PulseCursorLine()
-    let current_window = winnr()
+" Exclude from ctrlp search
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  'utils/node_modules\|\.git$\|\.hg$\|\.svn$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$',
+    \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+    \ }
 
-    windo set nocursorline
-    execute current_window . 'wincmd w'
-
-    setlocal cursorline
-
-    redir => old_hi
-    silent execute 'hi CursorLine'
-    redir END
-    let old_hi = split(old_hi, '\n')[0]
-    let old_hi = substitute(old_hi, 'xxx', '', '')
-
-    hi CursorLine guibg=#2a2a2a ctermbg=233
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#333333 ctermbg=235
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#3a3a3a ctermbg=237
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#444444 ctermbg=239
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#3a3a3a ctermbg=237
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#333333 ctermbg=235
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#2a2a2a ctermbg=233
-    redraw
-    sleep 20m
-
-    execute 'hi ' . old_hi
-
-    windo set cursorline
-    execute current_window . 'wincmd w'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Running tests
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Run test for this file (requires nose Python package)
+function! RunTestsForCurrentFile()
+    :w
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    exec ":! nosetests --rednose %"
 endfunction
 
-" "}}}"
+" Run all tests (requires fabric and nose Python packages)
+function! RunAllTests()
+    :w
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    exec ":! fab test"
+endfunction
 
-" Keep search matches in the middle of the window and pulse the line when moving
-" " to them.
-nnoremap n nzzzv:call PulseCursorLine()<cr>
-nnoremap N Nzzzv:call PulseCursorLine()<cr>
-
-
-highlight ColorColumn guibg=#222222
+map <leader>a :call RunTestsForCurrentFile()<cr>
+map <leader>z :call RunAllTests()<cr>
