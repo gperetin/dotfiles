@@ -76,7 +76,7 @@ augroup vimrcEx
     \ endif
 
     autocmd FileType python,javascript set sw=4 sts=4 et
-    autocmd FileType ruby,haml,eruby,yaml,html,jade set ai sw=2 sts=2 et
+    autocmd FileType ruby,haml,eruby,yaml,html,jade,htmldjango set ai sw=2 sts=2 et
 
     autocmd! BufRead, BufNewFile *.jade setfiletype jade
 
