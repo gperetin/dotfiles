@@ -61,6 +61,8 @@ map qq :bd<cr>
 " Reeealy should get used to this...
 inoremap jk <esc>
 
+inoremap <leader>a :call RunTestsForCurrentFile()<cr>
+
 " Custom autocmds
 augroup vimrcEx
     autocmd!
