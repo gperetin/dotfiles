@@ -82,6 +82,8 @@ augroup vimrcEx
 
     autocmd BufRead *.mkd set ai formatoptions=tcroqn2 comments=n:&gt;
     autocmd BufRead *.markdown set ai formatoptions=tcroqn2 comments=n:&gt;
+
+    autocmd BufWritePre *.py :%s/\s\+$//e
 augroup END
 
 " Set the color scheme
