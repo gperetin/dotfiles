@@ -1,0 +1,21 @@
+#!/bin/bash
+tmux new-session -s bunkhouse -n local -d
+
+tmux new-window -n worker -t bunkhouse
+tmux split-window -h -t bunkhouse
+tmux send-keys -t bunkhouse 'ssh bunkhouse@localhost -p3333' C-m
+tmux split-window -v -p 33 -t bunkhouse
+tmux send-keys -t bunkhouse 'ssh bunkhouse@localhost -p3333' C-m
+tmux split-window -v -p 33 -t bunkhouse
+tmux send-keys -t bunkhouse 'ssh bunkhouse@localhost -p3333' C-m
+
+tmux new-window -n shell-ft -t bunkhouse
+tmux send-keys -t bunkhouse 'workon ft' C-m
+
+tmux new-window -n vim-ft -t bunkhouse
+tmux send-keys -t bunkhouse 'workon ft' C-m
+
+tmux new-window -n vim-bhdjango -t bunkhouse
+tmux send-keys -t bunkhouse 'workon bh-django' C-m
+
+tmux -2 attach-session -t bunkhouse
