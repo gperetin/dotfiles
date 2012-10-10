@@ -1,21 +1,42 @@
 #!/bin/bash
 tmux new-session -s bunkhouse -n local -d
+tmux split-window -h -t bunkhouse
+tmux send-keys -t bunkhouse 'cd ~/tools/redis && ./redis-server' C-m
+sleep 1
+
+HOST_IP=`ifconfig en1 inet | sed -n 2p | cut -c7-19`
 
 tmux new-window -n worker -t bunkhouse
 tmux split-window -h -t bunkhouse
 tmux send-keys -t bunkhouse 'ssh bunkhouse@localhost -p3333' C-m
+tmux send-keys -t bunkhouse 'workon bh-worker' C-m
+tmux send-keys -t bunkhouse "export REDISTOGO_URL=redis://"$HOST_IP":6379" C-m
+tmux send-keys -t bunkhouse './bh-monitor ../festival-trafficking/config.py' C-m
+
 tmux split-window -v -p 33 -t bunkhouse
 tmux send-keys -t bunkhouse 'ssh bunkhouse@localhost -p3333' C-m
+tmux send-keys -t bunkhouse 'workon bh-worker' C-m
+tmux send-keys -t bunkhouse "export REDISTOGO_URL=redis://"$HOST_IP":6379" C-m
+tmux send-keys -t bunkhouse './bh-httpserver ../festival-trafficking/config.py' C-m
+
 tmux split-window -v -p 33 -t bunkhouse
 tmux send-keys -t bunkhouse 'ssh bunkhouse@localhost -p3333' C-m
+tmux send-keys -t bunkhouse 'workon bh-worker' C-m
+tmux send-keys -t bunkhouse "export REDISTOGO_URL=redis://"$HOST_IP":6379" C-m
+tmux send-keys -t bunkhouse './bh-worker ../festival-trafficking/config.py' C-m
 
 tmux new-window -n shell-ft -t bunkhouse
+tmux split-window -h -t bunkhouse
 tmux send-keys -t bunkhouse 'workon ft' C-m
+tmux send-keys -t bunkhouse "export REDISTOGO_URL=redis://"$HOST_IP":6379" C-m
+tmux send-keys -t bunkhouse 'python manage.py run_manager' C-m
 
 tmux new-window -n vim-ft -t bunkhouse
 tmux send-keys -t bunkhouse 'workon ft' C-m
+tmux send-keys -t bunkhouse 'vim' C-m
 
 tmux new-window -n vim-bhdjango -t bunkhouse
 tmux send-keys -t bunkhouse 'workon bh-django' C-m
+tmux send-keys -t bunkhouse 'vim' C-m
 
-tmux -2 attach-session -t bunkhouse
+tmux -u -2 attach-session -t bunkhouse
