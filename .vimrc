@@ -27,6 +27,8 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 " Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
+set linespace=5
+
 " Basic configs
 set expandtab
 set shiftwidth=4
@@ -61,8 +63,6 @@ map qq :bd<cr>
 " Reeealy should get used to this...
 inoremap jk <esc>
 
-inoremap <leader>a :call RunTestsForCurrentFile()<cr>
-
 " Custom autocmds
 augroup vimrcEx
     autocmd!
@@ -75,10 +75,8 @@ augroup vimrcEx
     \   exe "normal g`\"" |
     \ endif
 
-    autocmd FileType python,javascript set sw=4 sts=4 et
-    autocmd FileType ruby,haml,eruby,yaml,html,jade,htmldjango set ai sw=2 sts=2 et
-
-    autocmd! BufRead, BufNewFile *.jade setfiletype jade
+    autocmd FileType python,javascript,html,htmldjango set sw=4 sts=4 et
+    autocmd FileType ruby,haml,eruby,yaml,jade set ai sw=2 sts=2 et
 
     autocmd BufRead *.mkd set ai formatoptions=tcroqn2 comments=n:&gt;
     autocmd BufRead *.markdown set ai formatoptions=tcroqn2 comments=n:&gt;
@@ -87,9 +85,9 @@ augroup vimrcEx
 augroup END
 
 " Set the color scheme
-:set t_Co=256
-:set background=dark
-:color grb256
+set t_Co=256
+set background=dark
+colorscheme grb256
 
 " Use emacs-style tab completion when selecting files, etc
 set wildmode=longest,list
@@ -126,23 +124,6 @@ function! RenameFile()
 endfunction
 map <leader>n :call RenameFile()<cr>
 
-function! ExtractVariable()
-    let name = input("Variable name: ")
-    if name == ''
-        return
-    endif
-    " Enter visual mode (not sure why this is needed since we're already in
-    " visual mode anyway)
-    normal! gv
-
-    " Replace selected text with the variable name
-    exec "normal c" . name
-    " Define the variable on the line above
-    exec "normal! O" . name . " = "
-    " Paste the original selected text to be the variable value
-    normal! $p
-endfunction
-vnoremap <leader>rv :call ExtractVariable()<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
@@ -187,7 +168,7 @@ command! OpenChangedFiles :call OpenChangedFiles()
 " Exclude from ctrlp search
 let g:ctrlp_custom_ignore = {
     \ 'dir':  'utils/node_modules\|\.git$\|\.hg$\|\.svn$',
-    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.jpg$\|\.png$\|\.pyc$',
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
     \ }
 
@@ -202,7 +183,7 @@ function! RunTestsForCurrentFile()
     :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
     :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
     :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    exec ":! nosetests --rednose %"
+    exec ":! ./manage.py test %"
 endfunction
 
 " Run all tests (requires fabric and nose Python packages)
@@ -213,7 +194,7 @@ function! RunAllTests()
     :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
     :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
     :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    exec ":! fab test"
+    exec ":! ./manage.py test"
 endfunction
 
 map <leader>a :call RunTestsForCurrentFile()<cr>
