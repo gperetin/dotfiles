@@ -1,9 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/home/goran/dev/dk/simplemachine/simplemachine'
-let g:netrw_dirhist_2='/home/goran/dev/dk/simplemachine/.git'
-let g:netrw_dirhist_3='/home/goran/dev/sources/django-nose/testapp'
-let g:netrw_dirhist_4='/home/goran/dev/play/ds2/testing'
-let g:netrw_dirhist_5='/'
-let g:netrw_dirhist_6='/home/goran/.vim/colors'
-let g:netrw_dirhist_7='/home/goran/.vim/ftplugin'
