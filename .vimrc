@@ -27,7 +27,7 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 " Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-set linespace=5
+set linespace=2
 
 " Basic configs
 set expandtab
@@ -35,12 +35,12 @@ set shiftwidth=4
 set tabstop=4
 set softtabstop=4
 set incsearch
-set cursorline
+" set cursorline
 set autoindent
 set laststatus=2
 set showmatch
 set switchbuf=useopen
-set cmdheight=2
+set cmdheight=1
 set nonumber
 set showtabline=2
 set winwidth=79
@@ -199,3 +199,6 @@ endfunction
 
 map <leader>a :call RunTestsForCurrentFile()<cr>
 map <leader>z :call RunAllTests()<cr>
+let g:Powerline_symbols = 'fancy'
+
+let g:syntastic_python_checkers=[]
