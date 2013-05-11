@@ -2,7 +2,7 @@
 " I removed all Ruby stuff and added some Python stuff
 " Gary's .vimrc is at https://github.com/garybernhardt/dotfiles
 
-call pathogen#runtime_append_all_bundles()
+call pathogen#incubate()
 
 set nocompatible
 " Allow backgrounding buffers without writing them, and remember marks/undo
