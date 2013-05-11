@@ -33,8 +33,6 @@ export ACK_COLOR_MATCH='red'
 # ACTUAL CUSTOMIZATION OH NOES!
 gd() { git diff $* | view -; }
 gdc() { gd --cached $*; }
-alias pygrep="grep --include='*.py' $*"
-alias sr="screen -r"
 alias gx="gitx"
 alias gxa="gitx --all"
 function mcd() { mkdir -p $1 && cd $1 }
@@ -54,8 +52,7 @@ python_module_dir () {
         )"
 }
 
-export WORKON_HOME=~/dev/envs
-source virtualenvwrapper.sh
+export WORKON_HOME=~/.virtualenvs
 alias f="fg"
 alias i="ipython"
 alias v="vim"
@@ -66,3 +63,17 @@ foreground-vi() {
 }
 zle -N foreground-vi
 bindkey '^Z' foreground-vi
+
+bindkey '^f' forward-word
+bindkey '^b' backward-word
+bindkey '^q' delete-word
+
+# PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+# Oh my zsh
+ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="robbyrussell"
+source $ZSH/oh-my-zsh.sh
