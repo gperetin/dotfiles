@@ -32,3 +32,6 @@
 
 [core]
     editor = vim
+	excludesfile = /Users/goran/.gitignore_global
+[push]
+	default = current
