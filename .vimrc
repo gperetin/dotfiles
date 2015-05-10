@@ -2,13 +2,41 @@
 " I removed all Ruby stuff and added some Python stuff
 " Gary's .vimrc is at https://github.com/garybernhardt/dotfiles
 
-call pathogen#incubate()
+" call pathogen#incubate()
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" " alternatively, pass a path where Vundle should install plugins
+" "call vundle#begin('~/some/path/here')
+"
+" " let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+"
+" " The following are examples of different formats supported.
+" " Keep Plugin commands between vundle#begin/end.
+" " plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+Plugin 'bling/vim-airline'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-commentary'
+Plugin 'ervandew/supertab'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdtree'
+
+" " All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 set nocompatible
 " Allow backgrounding buffers without writing them, and remember marks/undo
 set hidden
 " Remember more commands and search history
 set history=10000
+
 
 " Make tab completion for files/buffers act like bash
 set wildmenu
@@ -42,9 +70,11 @@ set showmatch
 set switchbuf=useopen
 set cmdheight=1
 set nonumber
-set showtabline=2
+set showtabline=0
 set winwidth=79
 set shell=bash
+set encoding=utf-8
+
 let mapleader=","
 " Highlighting search
 set hls
@@ -68,6 +98,7 @@ augroup vimrcEx
     autocmd!
     " For all text files set 'textwidth' to 78 characters
     autocmd FileType text setlocal textwidth=78
+    autocmd FileType markdown setlocal textwidth=78
 
     " When editing a file, always jump to the last known cursor position
     autocmd BufReadPost *
@@ -96,21 +127,26 @@ set wildmode=longest,list
 :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 :hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 
+
 " ctrlp config
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_max_height = 10
 
 " TAB key autocompletes or indents
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
-endfunction
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <s-tab> <c-n>
+" function! InsertTabWrapper()
+"     let col = col('.') - 1
+"     if !col || getline('.')[col - 1] !~ '\k'
+"         return "\<tab>"
+"     else
+"         return "\<c-p>"
+"     endif
+" endfunction
+" inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+" inoremap <s-tab> <c-n>
+
+let g:SuperTabDefaultCompletionType = "<c-p>"
+au FileType ocaml call SuperTabSetDefaultCompletionType("<c-x><c-o>")
+" au FileType ocaml setl sw=2 sts=2 et
 
 " Rename current file
 function! RenameFile()
@@ -199,6 +235,19 @@ endfunction
 
 map <leader>a :call RunTestsForCurrentFile()<cr>
 map <leader>z :call RunAllTests()<cr>
-let g:Powerline_symbols = 'fancy'
 
 let g:syntastic_python_checkers=[]
+
+" OCaml Merlin
+let s:ocamlmerlin=substitute(system('opam config var share'),'\n$','','''') .  "/ocamlmerlin"
+execute "set rtp+=".s:ocamlmerlin."/vim"
+execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
+
+let g:syntastic_ocaml_checkers = ['merlin']
+
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+
+map <C-n> :NERDTreeToggle<CR>
+
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
