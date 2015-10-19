@@ -1,9 +1,3 @@
-" Most of this is shamelessly stolen from Gary Bernhardt
-" I removed all Ruby stuff and added some Python stuff
-" Gary's .vimrc is at https://github.com/garybernhardt/dotfiles
-
-" call pathogen#incubate()
-
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -11,7 +5,6 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " " alternatively, pass a path where Vundle should install plugins
-" "call vundle#begin('~/some/path/here')
 "
 " " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
@@ -26,10 +19,21 @@ Plugin 'tpope/vim-commentary'
 Plugin 'ervandew/supertab'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-fireplace'
+Plugin 'guns/vim-clojure-highlight'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'tpope/vim-salve'
+Plugin 'chriskempson/base16-vim'
 
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
+execute "set rtp+=" . g:opamshare . "/merlin/vimbufsync"
 
 set nocompatible
 " Allow backgrounding buffers without writing them, and remember marks/undo
@@ -79,7 +83,6 @@ let mapleader=","
 " Highlighting search
 set hls
 " Enable file type detection.
-filetype plugin indent on
 
 syntax on
 
@@ -112,13 +115,13 @@ augroup vimrcEx
     autocmd BufRead *.mkd set ai formatoptions=tcroqn2 comments=n:&gt;
     autocmd BufRead *.markdown set ai formatoptions=tcroqn2 comments=n:&gt;
 
-    autocmd BufWritePre *.py :%s/\s\+$//e
+    autocmd BufWritePre *.py,*.ml :%s/\s\+$//e
 augroup END
 
 " Set the color scheme
 set t_Co=256
 set background=dark
-colorscheme grb256
+colorscheme base16-default
 
 " Use emacs-style tab completion when selecting files, etc
 set wildmode=longest,list
@@ -132,21 +135,10 @@ set wildmode=longest,list
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_max_height = 10
 
-" TAB key autocompletes or indents
-" function! InsertTabWrapper()
-"     let col = col('.') - 1
-"     if !col || getline('.')[col - 1] !~ '\k'
-"         return "\<tab>"
-"     else
-"         return "\<c-p>"
-"     endif
-" endfunction
-" inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-" inoremap <s-tab> <c-n>
 
 let g:SuperTabDefaultCompletionType = "<c-p>"
 au FileType ocaml call SuperTabSetDefaultCompletionType("<c-x><c-o>")
-" au FileType ocaml setl sw=2 sts=2 et
+au FileType ocaml setl sw=2 sts=2 et
 
 " Rename current file
 function! RenameFile()
@@ -208,40 +200,8 @@ let g:ctrlp_custom_ignore = {
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
     \ }
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Running tests
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Run test for this file (requires nose Python package)
-function! RunTestsForCurrentFile()
-    :w
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    exec ":! ./manage.py test %"
-endfunction
-
-" Run all tests (requires fabric and nose Python packages)
-function! RunAllTests()
-    :w
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
-    exec ":! ./manage.py test"
-endfunction
-
-map <leader>a :call RunTestsForCurrentFile()<cr>
-map <leader>z :call RunAllTests()<cr>
-
 let g:syntastic_python_checkers=[]
 
-" OCaml Merlin
-let s:ocamlmerlin=substitute(system('opam config var share'),'\n$','','''') .  "/ocamlmerlin"
-execute "set rtp+=".s:ocamlmerlin."/vim"
-execute "set rtp+=".s:ocamlmerlin."/vimbufsync"
 
 let g:syntastic_ocaml_checkers = ['merlin']
 
@@ -251,3 +211,9 @@ let g:airline_right_sep=''
 map <C-n> :NERDTreeToggle<CR>
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" Rainbow parentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
