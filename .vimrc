@@ -19,21 +19,14 @@ Plugin 'tpope/vim-commentary'
 Plugin 'ervandew/supertab'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
-Plugin 'tpope/vim-fireplace'
-Plugin 'guns/vim-clojure-highlight'
-Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'tpope/vim-salve'
 Plugin 'chriskempson/base16-vim'
+Plugin 'plasticboy/vim-markdown'
 
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
-
-let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-execute "set rtp+=" . g:opamshare . "/merlin/vim"
-execute "set rtp+=" . g:opamshare . "/merlin/vimbufsync"
 
 set nocompatible
 " Allow backgrounding buffers without writing them, and remember marks/undo
@@ -112,8 +105,10 @@ augroup vimrcEx
     autocmd FileType python,javascript,html,htmldjango set sw=4 sts=4 et
     autocmd FileType ruby,haml,eruby,yaml,jade set ai sw=2 sts=2 et
 
-    autocmd BufRead *.mkd set ai formatoptions=tcroqn2 comments=n:&gt;
-    autocmd BufRead *.markdown set ai formatoptions=tcroqn2 comments=n:&gt;
+    " autocmd BufRead *.mkd set ai formatoptions=tcroqn2 comments=n:&gt;
+    " autocmd BufRead *.markdown set ai formatoptions=tcroqn2 comments=n:&gt;
+    " autocmd BufRead *.md set ai formatoptions=tcroqn2 comments=n:&gt;
+    au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,README.md  setf markdown
 
     autocmd BufWritePre *.py,*.ml :%s/\s\+$//e
 augroup END
@@ -121,7 +116,7 @@ augroup END
 " Set the color scheme
 set t_Co=256
 set background=dark
-colorscheme base16-default
+colorscheme base16-default-dark
 
 " Use emacs-style tab completion when selecting files, etc
 set wildmode=longest,list
