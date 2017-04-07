@@ -15,6 +15,7 @@ Plug 'plasticboy/vim-markdown'
 Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
@@ -28,6 +29,8 @@ set hidden
 " Remember more commands and search history
 set history=10000
 
+" Open all folds by default
+set foldlevel=20
 
 " Make tab completion for files/buffers act like bash
 set wildmenu
@@ -108,18 +111,17 @@ augroup vimrcEx
 augroup END
 
 " Set the color scheme
-set t_Co=256
-set background=dark
-" colorscheme base16-default-dark
+" set t_Co=256
+set background=light
 colorscheme solarized
-" let base16colorspace=256
+let g:solarized_termcolors = 16
 
 " Use emacs-style tab completion when selecting files, etc
 set wildmode=longest,list
 
 " Put useful info in status line
-:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
-:hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
+" :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+":hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 
 
 " ctrlp config
@@ -152,7 +154,7 @@ map <leader>n :call RenameFile()<cr>
 nnoremap <leader>' ""yls<c-r>={'"': "'", "'": '"'}[@"]<cr><esc>
 
 map <leader>gt :CtrlPTag<cr>
-map <leader>f :CtrlP<cr>
+map <leader>f :GFiles<cr>
 map <leader>F :CtrlP %%<cr>
 map <leader>b :CtrlPBuffer<cr>
 map <leader>m :CtrlPMRU<cr>
@@ -209,3 +211,8 @@ map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 set tags=./tags;/,tags;/
+
+
+" FZF config
+let g:fzf_layout = { 'down': '~30%' }
+let g:fzf_buffers_jump = 1
