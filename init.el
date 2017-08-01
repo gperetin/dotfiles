@@ -3,7 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (which-key ensime helm evil use-package))))
+ '(package-selected-packages (quote (which-key ensime helm use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -53,7 +53,9 @@
 (require 'use-package)
 
 (use-package evil
-  :demand)
+  :ensure t
+  :config
+  (evil-mode 1))
 
 (use-package ensime
   :ensure t
@@ -80,5 +82,8 @@
 
 (defalias 'list-buffers 'ibuffer)
 
-; Start in normal mode
-(evil-mode 1)
+; Which key
+(which-key-mode)
+
+; Disable all bells
+(setq ring-bell-function 'ignore)
