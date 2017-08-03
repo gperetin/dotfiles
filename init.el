@@ -3,7 +3,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (which-key ensime helm use-package))))
+ '(package-selected-packages
+   (quote
+    (evil popup-imenu counsel ivy fzf projectile which-key ensime use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -67,7 +69,8 @@
 (use-package scala-mode
   :pin melpa)
 
-(setq default-frame-alist '((font . "Iosevka Term-18")))
+; (setq default-frame-alist '((font . "Iosevka Term-18")))
+(setq default-frame-alist '((font . "Source Code Pro-18")))
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -87,3 +90,36 @@
 
 ; Disable all bells
 (setq ring-bell-function 'ignore)
+
+; Projectile
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-mode 1))
+
+(setq projectile-enable-caching t)
+
+; Swiper, counsel and ivy
+(use-package counsel
+  :ensure t)
+
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq ivy-count-format "(%d/%d) ")
+
+; Fzf
+(use-package fzf
+  :ensure t)
+
+; Tune GC
+(defun my-minibuffer-setup-hook ()
+  (setq gc-cons-threshold most-positive-fixnum))
+
+(defun my-minibuffer-exit-hook ()
+  (setq gc-cons-threshold 8000000))
+
+(add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
+(add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+
+; Showing git branch in modeline on file open is slow, let's remove that hook
+(remove-hook 'find-file-hook 'vc-refresh-state)
