@@ -126,3 +126,7 @@
 
 ; Faster fuzzy file search
 (define-key evil-normal-state-map ",f" 'counsel-git)
+
+;; Rust config
+(use-package rust-mode
+  :ensure t)
