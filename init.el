@@ -32,8 +32,8 @@
  tab-width 4
  c-basic-offset 4)
 
-;; modes
-(electric-indent-mode 0)
+;; Automatically indent after RET
+(electric-indent-mode +1)
 
 ;; global keybindings
 (global-unset-key (kbd "C-z"))
@@ -123,3 +123,6 @@
 
 ; Showing git branch in modeline on file open is slow, let's remove that hook
 (remove-hook 'find-file-hook 'vc-refresh-state)
+
+; Faster fuzzy file search
+(define-key evil-normal-state-map ",f" 'counsel-git)
