@@ -130,3 +130,9 @@
 ;; Rust config
 (use-package rust-mode
   :ensure t)
+
+;; YAML mode
+(use-package yaml-mode
+  :ensure t
+  :pin melpa)
+(yaml-mode)
