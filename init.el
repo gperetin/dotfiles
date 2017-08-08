@@ -136,3 +136,8 @@
   :ensure t
   :pin melpa)
 (yaml-mode)
+
+;; Solarized theme
+(use-package solarized-theme
+  :ensure t)
+(load-theme 'solarized-light)
