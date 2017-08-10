@@ -107,10 +107,6 @@
 (setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
 
-; Fzf
-(use-package fzf
-  :ensure t)
-
 ; Tune GC
 (defun my-minibuffer-setup-hook ()
   (setq gc-cons-threshold most-positive-fixnum))
@@ -137,7 +133,11 @@
   :pin melpa)
 (yaml-mode)
 
+;; Load Twitter custom config and don't bark if it's not there
+(load "~/.emacs.d/custom_configs/twitter.el" t)
+
 ;; Solarized theme
 (use-package solarized-theme
   :ensure t)
 (load-theme 'solarized-light)
+(setq solarized-use-less-bold t)
