@@ -32,6 +32,24 @@
  tab-width 4
  c-basic-offset 4)
 
+;; Store backups in a common folder + keep lots of history
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+(setq delete-old-versions -1)
+(setq version-control t)
+(setq vc-make-backup-files t)
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
+
+;; Configure history
+(setq savehist-file "~/.emacs.d/savehist")
+(savehist-mode 1)
+(setq history-length t)
+(setq history-delete-duplicates t)
+(setq savehist-save-minibuffer-history 1)
+(setq savehist-additional-variables
+      '(kill-ring
+        search-ring
+        regexp-search-ring))
+
 ;; Automatically indent after RET
 (electric-indent-mode +1)
 
@@ -72,12 +90,18 @@
 ; (setq default-frame-alist '((font . "Iosevka Term-18")))
 (setq default-frame-alist '((font . "Source Code Pro-18")))
 
+;; Get some screen realestate back
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+
+;; Don't want blinking
 (blink-cursor-mode 0)
 
+;; Some random stuff
 (show-paren-mode)
+(setq sentence-end-double-space nil)
+(fset 'yes-or-no-p 'y-or-n-p)
 
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
@@ -133,6 +157,10 @@
   :pin melpa)
 (yaml-mode)
 
+;; Smart mode line package
+(use-package smart-mode-line
+  :ensure t)
+
 ;; Load Twitter custom config and don't bark if it's not there
 (load "~/.emacs.d/custom_configs/twitter.el" t)
 
@@ -141,3 +169,25 @@
   :ensure t)
 (load-theme 'solarized-light)
 (setq solarized-use-less-bold t)
+
+;; Key chords
+(use-package key-chord
+  :ensure t
+  :pin melpa)
+(require 'key-chord)
+
+;; Max time delay between two key presses to be considered a key chord
+(setq key-chord-two-keys-delay 0.1) ; default 0.1
+
+;; Max time delay between two presses of the same key to be considered a key chord.
+;; Should normally be a little longer than `key-chord-two-keys-delay'.
+(setq key-chord-one-key-delay 0.3) ; default 0.2
+
+(defun switch-to-previous-buffer ()
+    "Switch to previously open buffer.
+    Repeated invocations toggle between the two most recently open buffers."
+  (interactive)
+  (switch-to-buffer (other-buffer (current-buffer) 1)))
+
+(key-chord-define-global ",," 'switch-to-previous-buffer)
+(key-chord-mode +1)
