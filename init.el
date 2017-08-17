@@ -77,13 +77,6 @@
   :config
   (evil-mode 1))
 
-(use-package ensime
-  :ensure t
-  :pin melpa)
-
-(use-package sbt-mode
-  :pin melpa)
-
 (use-package scala-mode
   :pin melpa)
 
@@ -146,6 +139,7 @@
 
 ; Faster fuzzy file search
 (define-key evil-normal-state-map ",f" 'counsel-git)
+(define-key evil-normal-state-map ",b" 'ivy-switch-buffer)
 
 ;; Rust config
 (use-package rust-mode
@@ -169,6 +163,10 @@
   :ensure t)
 (load-theme 'solarized-light)
 (setq solarized-use-less-bold t)
+
+;; Nicer bullets for Org mode
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 ;; Key chords
 (use-package key-chord
