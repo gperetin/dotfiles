@@ -1,0 +1,31 @@
+# Created by newuser for 5.6.2
+
+autoload -Uz compinit promptinit
+compinit
+promptinit
+
+autoload -Uz vcs_info
+precmd() { vcs_info }
+
+# Format the VCS branch info
+zstyle ':vcs_info:git:*' formats '  %b'
+
+# Prompt
+setopt PROMPT_SUBST
+PROMPT='%F{magenta}%1~%f${vcs_info_msg_0_}  '
+
+# More history
+export HISTSIZE=100000
+export HISTFILE="$HOME/.history"
+export SAVEHIST=$HISTSIZE
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
+
+# Use fzf for Ctrl-R search
+[ -f ~/.config/fzf/key-bindings.zsh ] && source ~/.config/fzf/key-bindings.zsh
+
+base16_atelier-dune
