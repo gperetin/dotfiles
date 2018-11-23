@@ -23,26 +23,7 @@ font-3 = "Font Awesome 5 Free:style=Solid:size=12;3"
 font-4 = "Font Awesome 5 Brands:style=Regular:size=12;3"
 
 modules-left = i3 mpd
-modules-right = volume wireless-network wired-network battery date powermenu 
-
-[module/backlight]
-type = internal/xbacklight
-format = <ramp> <bar>
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-
-bar-width = 10
-bar-indicator = |
-bar-indicator-font = 3
-bar-indicator-foreground = #ff
-bar-fill = ─
-bar-fill-font = 3
-bar-fill-foreground = #c9665e
-bar-empty = ─
-bar-empty-font = 3
-bar-empty-foreground = #44
+modules-right = volume wireless-network wired-network battery date
 
 [module/battery]
 type = internal/battery
@@ -139,7 +120,7 @@ label-visible-font = 4
 ;   %index%
 ;   %output%
 ; Default: %icon%  %name%
-label-urgent = %index%
+label-urgent = %icon%
 label-urgent-foreground = #000000
 label-urgent-background = #b65611
 label-urgent-padding = 4
@@ -179,7 +160,7 @@ ramp-coreload-7-foreground = #ff5555
 
 [module/date]
 type = internal/date
-date =    %%{F#99}%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F-}
+date =   %%{F#99}%b %d%%{F-},  %%{F#fff}%H:%M%%{F-}
 date-alt = %%{F#fff}%A, %d %B %Y  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}
 
 
@@ -255,43 +236,6 @@ ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
 ramp-volume-3 = 
-
-[module/powermenu]
-type = custom/menu
-
-format-padding = 5
-
-label-open = 
-label-close = 
-
-menu-0-0 = Terminate WM
-menu-0-0-foreground = #fba922
-menu-0-0-exec = bspc quit -1
-menu-0-1 = Reboot
-menu-0-1-foreground = #fba922
-menu-0-1-exec = menu_open-1
-menu-0-2 = Power off
-menu-0-2-foreground = #fba922
-menu-0-2-exec = menu_open-2
-
-menu-1-0 = Cancel
-menu-1-0-foreground = #fba922
-menu-1-0-exec = menu_open-0
-menu-1-1 = Reboot
-menu-1-1-foreground = #fba922
-menu-1-1-exec = sudo reboot
-
-menu-2-0 = Power off
-menu-2-0-foreground = #fba922
-menu-2-0-exec = sudo poweroff
-menu-2-1 = Cancel
-menu-2-1-foreground = #fba922
-menu-2-1-exec = menu_open-0
-
-[module/clock]
-type = internal/date
-interval = 2
-date = %%{F#999}%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F-}
 
 ; vim:ft=dosini
 
