@@ -1,7 +1,24 @@
-## Firefox scrolling
+# Notes for Arch Linux setup on Dell XPS 15 9570
 
-To fix "tearing" in Firefox when scrolling, change the
-layers.acceleration.force-enabled config setting in about:config to true.
+## AlgoVPN (ipsec)
+
+(there are some instructions in [AlgoVPN
+readme](https://github.com/trailofbits/algo#ubuntu-server-1804-example))
+
+* strongswan needs to be installed
+* to set up copy the following from the generated Algo VPN configs folder:
+** contents of `ipsec_{user}.conf` into `/etc/ipsec.conf`
+** add an entry into `/etc/ipsec.secrets`: `<ip_address> : ECDSA {user.key}`
+** `cp cacert.pem /etc/ipsec.d/cacerts`
+** `cp pki/certs/{user.crt} /etc/ipsec.d/certs`
+** `cp pki/private/{user.key} /etc/ipsec.d/private`
+
+Then restart ipsec and try connecting:
+
+```
+    sudo ipsec stop
+    sudo ipsec up ikev2-{ip}
+```
 
 ## Touchpad config
 
@@ -20,23 +37,6 @@ EndSection
 ```
 
 ## Redshift config
-
-Install Redshift via `apt`, then put the following in
-`/etc/systemd/system/redshift.service`:
-
-```
-[Unit]
-Description=Redshift display colour temperature adjustment
-Documentation=http://jonls.dk/redshift/
-After=display-manager.service
-
-[Service]
-ExecStart=/usr/bin/redshift
-Restart=always
-
-[Install]
-WantedBy=default.target
-```
 
 Enable and start as:
 ```
