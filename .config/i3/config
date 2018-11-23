@@ -209,9 +209,6 @@ bindsym $mod+shift+x exec i3lock
 exec xset r rate 220 50
 exec_always feh --bg-scale /home/goran/Pictures/wallpaper.jpg
 
-# Start redshift
-exec redshift & --no-startup-id
-
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
