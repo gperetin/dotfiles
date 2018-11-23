@@ -19,6 +19,21 @@ export HISTSIZE=100000
 export HISTFILE="$HOME/.history"
 export SAVEHIST=$HISTSIZE
 
+# Remove until '/' when using Ctrl-W
+backward-kill-dir () {
+    local WORDCHARS=${WORDCHARS/\/}
+    zle backward-kill-word
+}
+zle -N backward-kill-dir
+bindkey '^W' backward-kill-dir
+
+# Word jumps
+bindkey "^B" backward-word
+bindkey "^F" forward-word
+
+# Autojump
+[ -f /etc/profile.d/autojump.zsh ] && source /etc/profile.d/autojump.zsh
+
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
