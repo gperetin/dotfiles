@@ -102,6 +102,8 @@ label-focused-font = 4
 ; Default: %icon%  %name%
 label-unfocused = %icon%
 label-unfocused-padding = 5
+label-unfocused-foreground = #a6a28c
+label-unfocused-background = #20201d
 
 ; Available tokens:
 ;   %name%
@@ -109,7 +111,7 @@ label-unfocused-padding = 5
 ;   %index%
 ;   %output%
 ; Default: %icon%  %name%
-label-visible = %index%
+label-visible = %icon%
 label-visible-underline = #6e6b5e
 label-visible-padding = 5
 label-visible-font = 4
