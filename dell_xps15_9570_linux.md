@@ -1,5 +1,15 @@
 # Notes for Arch Linux setup on Dell XPS 15 9570
 
+## Blacklisting Nouveau
+
+This is a must, it fixes the issue where laptop would get permanently frozen
+when shutting down and would never power off. Also removes a bunch of errors
+in dmesg. From what I understood, it comes with the kernel so it can't be
+easily removed, but it can be blacklisted.
+
+Create a file in `/etc/modprobe.d/blacklist-nouveau.conf` with contents
+`blacklist nouveau`.
+
 ## AlgoVPN (ipsec)
 
 (there are some instructions in [AlgoVPN
