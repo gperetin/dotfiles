@@ -43,3 +43,9 @@ Enable and start as:
 systemctl --user enable redshift
 systemctl --user start redshift
 ```
+
+## Time
+
+For some reason system time sometimes gets messed up (eg. runs 8 hours
+behind), I wasn't able to troubleshoot yet, but to get it back, install `ntp`
+package and run `sudo ntpd -qg`.d -qg`.d -qg`.
