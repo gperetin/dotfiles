@@ -209,7 +209,7 @@ hide_edge_borders smart
 bindsym $mod+shift+x exec i3lock
 
 # Set the keyboard repeat rate
-exec xset r rate 220 50
+exec_always xset r rate 220 50
 exec_always feh --bg-scale /home/goran/Pictures/wallpaper.jpg
 
 # Pulse Audio controls
