@@ -1,5 +1,13 @@
 # Notes for Arch Linux setup on Dell XPS 15 9570
 
+## Dell XPS 15 9570 article on arch wiki
+
+This one [here]https://wiki.archlinux.org/index.php/Dell_XPS_15_9570). I
+didn't do everything as written there, mainly, seems like just blacklisting
+nouveau worked for me to disable the nvidia stuff and fix problems.
+
+I did do the undervolting as per that wiki and seems to be working.
+
 ## Blacklisting Nouveau
 
 This is a must, it fixes the issue where laptop would get permanently frozen
@@ -58,4 +66,4 @@ systemctl --user start redshift
 
 For some reason system time sometimes gets messed up (eg. runs 8 hours
 behind), I wasn't able to troubleshoot yet, but to get it back, install `ntp`
-package and run `sudo ntpd -qg`.d -qg`.d -qg`.
+package and run `sudo ntpd -qg`.
