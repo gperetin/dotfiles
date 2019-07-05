@@ -64,6 +64,6 @@ systemctl --user start redshift
 
 ## Time
 
-For some reason system time sometimes gets messed up (eg. runs 8 hours
-behind), I wasn't able to troubleshoot yet, but to get it back, install `ntp`
-package and run `sudo ntpd -qg`.
+Make sure time in BIOS is set to be UTC if dual booting. Otherwise, time will
+shift between boots into Windows and Linux, and Linux will be off because it
+understands the time set in BIOS as UTC.
