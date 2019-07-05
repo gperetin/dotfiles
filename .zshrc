@@ -27,7 +27,10 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-
 # Functions
 git-prompt-info() {
   git rev-parse --is-inside-work-tree &>/dev/null || return
-  echo " %f${vcs_info_msg_0_}$(git-dirty)%f"
+  # It would be nice to have the dirty indicator in the prompt, but it's just too slow for
+  # larger repos, so I'm not using that
+  # echo " %f${vcs_info_msg_0_}$(git-dirty)%f"
+  echo " %f${vcs_info_msg_0_}%f"
 }
 
 git-dirty() {
@@ -40,8 +43,9 @@ git-dirty() {
 }
 
 # Prompt
+# NerdFonts have to be installed for this prompt to work https://nerdfonts.com/
 setopt PROMPT_SUBST
-PROMPT='%F{magenta}%1~$(git-prompt-info)%f  '
+PROMPT='%F{magenta}%1~$(git-prompt-info)%f ❯ '
 
 # More history
 export HISTSIZE=100000
