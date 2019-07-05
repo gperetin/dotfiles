@@ -1,26 +1,77 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
+# Created by newuser for 5.6.2
 
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
+autoload -Uz compinit promptinit
+compinit
+promptinit
 
-# Customize to your needs...
+autoload -Uz vcs_info
+precmd() { vcs_info }
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="/opt/twitter/bin:/opt/twitter/sbin:/usr/local/mysql/bin:${HOME}/bin:$PATH:$HOME/.rvm/bin"
+# Format the VCS branch info
+zstyle ':vcs_info:git:*' formats ' %b'
+zstyle ':vcs_info:*' enable git
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# General config
+setopt no_beep
 
-# Custom movement
+# Completion settings
+# ===================
+# This makes it so that <TAB> iterates over options
+zstyle ':completion:*' menu select
+zstyle ':completion:*:default' list-colors ''
+# case-insensitive, partial-word, and then substring completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+
+
+# Functions
+git-prompt-info() {
+  git rev-parse --is-inside-work-tree &>/dev/null || return
+  echo " %f${vcs_info_msg_0_}$(git-dirty)%f"
+}
+
+git-dirty() {
+  test -z "$(command git status --porcelain --ignore-submodules -unormal)"
+  if [[ $? -eq 1 ]]; then
+    echo ' %F{red}✗%f'
+  else
+    echo ' %F{green}✔%f'
+  fi
+}
+
+# Prompt
+setopt PROMPT_SUBST
+PROMPT='%F{magenta}%1~$(git-prompt-info)%f  '
+
+# More history
+export HISTSIZE=100000
+export HISTFILE="$HOME/.history"
+export SAVEHIST=$HISTSIZE
+
+# Remove until '/' when using Ctrl-W
+backward-kill-dir () {
+    local WORDCHARS=${WORDCHARS/\/}
+    zle backward-kill-word
+}
+zle -N backward-kill-dir
+bindkey '^W' backward-kill-dir
+
+# Word jumps
 bindkey "^B" backward-word
 bindkey "^F" forward-word
 
-if [[ -s "${ZDORDIR:-$HOME}/.zshrc.local" ]]; then
-  source "${ZDORDIR:-$HOME}/.zshrc.local"
-fi
+# Autojump
+[ -f /etc/profile.d/autojump.zsh ] && source /etc/profile.d/autojump.zsh
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
+base16_atelier-dune
+
+# Use fzf for Ctrl-R search
+[ -f ~/.config/fzf/key-bindings.zsh ] && source ~/.config/fzf/key-bindings.zsh
+
+# Aliases
+alias ls=exa
