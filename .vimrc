@@ -85,10 +85,11 @@ set hls
 
 syntax on
 set termguicolors
-" Set the color scheme
-" set t_Co=256
 set background=dark
-colorscheme solarized
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
 let g:solarized_termcolors = 16
 
 " System clipboard
