@@ -23,6 +23,10 @@ filetype plugin indent on    " required
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 
+" #########################
+" ##### Basic configs #####
+" #########################
+
 set nocompatible
 " Allow backgrounding buffers without writing them, and remember marks/undo
 set hidden
@@ -35,9 +39,12 @@ set foldlevel=20
 " Make tab completion for files/buffers act like bash
 set wildmenu
 
+" Searching
 " Make searches case-sensitive only if they contain upper-case characters
 set ignorecase
 set smartcase
+set incsearch
+set showmatch
 
 " Keep more context when scrolling off the end of a buffer
 set scrolloff=3
@@ -51,30 +58,38 @@ set backspace=indent,eol,start
 
 set linespace=2
 
-" Basic configs
 set expandtab
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
-set incsearch
-" set cursorline
+" set cursorline " This is nice, but usually too slow
 set autoindent
 set laststatus=2
-set showmatch
 set switchbuf=useopen
 set cmdheight=1
 set nonumber
 set showtabline=0
+set title
 set winwidth=79
-set shell=bash
+set shell=zsh
 set encoding=utf-8
+set ttyfast
+set wrap
+set gdefault
+
+set backup
+set noswapfile
 
 let mapleader=","
-" Highlighting search
 set hls
-" Enable file type detection.
 
 syntax on
+set termguicolors
+" Set the color scheme
+" set t_Co=256
+set background=dark
+colorscheme solarized
+let g:solarized_termcolors = 16
 
 " System clipboard
 map <leader>y "*y
@@ -110,11 +125,6 @@ augroup vimrcEx
     autocmd BufWritePre *.py,*.ml :%s/\s\+$//e
 augroup END
 
-" Set the color scheme
-" set t_Co=256
-set background=light
-colorscheme solarized
-let g:solarized_termcolors = 16
 
 " Use emacs-style tab completion when selecting files, etc
 set wildmode=longest,list
