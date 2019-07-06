@@ -170,6 +170,9 @@ map <leader>F :CtrlP %%<cr>
 map <leader>b :CtrlPBuffer<cr>
 map <leader>m :CtrlPMRU<cr>
 
+" Search for the word under cursor
+nnoremap <silent> <Leader>rg :Rg <C-R><C-W><CR>
+
 nnoremap <leader><leader> <c-^>
 
 nnoremap <c-j> <c-w>j
@@ -198,6 +201,13 @@ function! OpenChangedFiles()
 endfunction
 command! OpenChangedFiles :call OpenChangedFiles()
 
+" Find word under cursor using Rg + fzf
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('right:50%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
 " Exclude from ctrlp search
 let g:ctrlp_custom_ignore = {
@@ -225,5 +235,5 @@ set tags=./tags;/,tags;/
 
 
 " FZF config
-let g:fzf_layout = { 'down': '~30%' }
+let g:fzf_layout = { 'down': '~40%' }
 let g:fzf_buffers_jump = 1
