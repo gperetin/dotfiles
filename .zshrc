@@ -76,6 +76,7 @@ base16_atelier-dune
 
 # Use fzf for Ctrl-R search
 [ -f ~/.config/fzf/key-bindings.zsh ] && source ~/.config/fzf/key-bindings.zsh
+source ~/.fzf.zsh
 
 # Aliases
 alias ls=exa
