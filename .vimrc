@@ -115,7 +115,7 @@ augroup vimrcEx
     \   exe "normal g`\"" |
     \ endif
 
-    autocmd FileType python,javascript,html,htmldjango set sw=2 sts=2 et
+    autocmd FileType python,javascript,html,htmldjango set sw=4 sts=4 et
     autocmd FileType ruby,haml,eruby,yaml,jade set ai sw=2 sts=2 et
 
     " autocmd BufRead *.mkd set ai formatoptions=tcroqn2 comments=n:&gt;
