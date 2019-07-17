@@ -79,10 +79,13 @@ base16_atelier-dune
 # Use fzf for completion
 [ -f ~/.config/fzf/completion.zsh ] && source ~/.config/fzf/completion.zsh
 
+# On Mac, somehow I got both of the above by sourcing this
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-
-
 
 # Aliases
 alias ls=exa
+
+# If there's a local .zshrc, source it
+if [[ -s "${ZDORDIR:-$HOME}/.zshrc.local" ]]; then
+  source "${ZDORDIR:-$HOME}/.zshrc.local"
+fi
