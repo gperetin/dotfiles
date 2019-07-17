@@ -164,11 +164,19 @@ map <leader>n :call RenameFile()<cr>
 " Make <leader>' switch between ' and "
 nnoremap <leader>' ""yls<c-r>={'"': "'", "'": '"'}[@"]<cr><esc>
 
+" MRU file search
+command! FZFMru call fzf#run({
+\  'source':  v:oldfiles,
+\  'sink':    'e',
+\  'options': '-m -x +s',
+\  'down':    '40%'})
+
 map <leader>gt :CtrlPTag<cr>
 map <leader>f :GFiles<cr>
 map <leader>F :CtrlP %%<cr>
 map <leader>b :CtrlPBuffer<cr>
-map <leader>m :CtrlPMRU<cr>
+map <leader>m :FZFMru<cr>
+
 
 " Search for the word under cursor
 nnoremap <silent> <Leader>rg :Rg <C-R><C-W><CR>
