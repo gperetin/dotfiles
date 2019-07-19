@@ -82,6 +82,15 @@ base16_atelier-dune
 # On Mac, somehow I got both of the above by sourcing this
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Alias to quickly view file
+alias vf="fzf --preview 'bat --style=numbers --color=always {}'"
+
+# Use git ls-tree for fast search in a git repo
+export FZF_DEFAULT_COMMAND='
+  (git ls-tree -r --name-only HEAD ||
+   find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
+      sed s/^..//) 2> /dev/null'
+
 # Aliases
 alias ls=exa
 
