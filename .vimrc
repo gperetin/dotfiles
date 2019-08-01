@@ -173,7 +173,7 @@ command! FZFMru call fzf#run({
 
 map <leader>gt :CtrlPTag<cr>
 map <leader>f :GFiles<cr>
-map <leader>F :CtrlP %%<cr>
+map <leader>F :Files<cr>
 map <leader>b :CtrlPBuffer<cr>
 map <leader>m :FZFMru<cr>
 

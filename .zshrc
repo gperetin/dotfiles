@@ -83,7 +83,7 @@ base16_atelier-dune
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Alias to quickly view file
-alias vf="fzf --preview 'bat --style=numbers --color=always {}'"
+alias vf="fzf --bind 'ctrl-v:execute(vim {})+abort' --preview 'bat --style=numbers --color=always {}' --preview-window up:70%"
 
 # Use git ls-tree for fast search in a git repo
 export FZF_DEFAULT_COMMAND='
