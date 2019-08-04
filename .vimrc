@@ -16,6 +16,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
@@ -124,6 +125,9 @@ augroup vimrcEx
     au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,README.md  setf markdown
 
     autocmd BufWritePre *.py,*.ml :%s/\s\+$//e
+
+    " vimwiki
+    autocmd FileType vimwiki map <Space> <Plug>VimwikiToggleListItem
 augroup END
 
 
@@ -241,7 +245,23 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 
 set tags=./tags;/,tags;/
 
+" Neovim
+if has("nvim")
+  " Make escape work in the Neovim terminal.
+  tnoremap <Esc> <C-\><C-n>
+
+  " Prefer Neovim terminal insert mode to normal mode.
+  autocmd BufEnter term://* startinsert
+
+  " Mouse scrolling
+  set mouse=a
+endif
+
 
 " FZF config
 let g:fzf_layout = { 'down': '~40%' }
 let g:fzf_buffers_jump = 1
+
+" VimWiki
+let g:vimwiki_list = [{'path': '~/Twitter/notes/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
