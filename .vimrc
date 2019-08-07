@@ -18,6 +18,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vimwiki/vimwiki'
 Plug 'mhinz/vim-startify'
+Plug 'edma2/vim-pants'
 
 call plug#end()
 
@@ -266,3 +267,6 @@ let g:fzf_buffers_jump = 1
 " VimWiki
 let g:vimwiki_list = [{'path': '~/Twitter/notes/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
+
+" Pants
+nmap <leader>c :Pants<cr> | cwindow 3
