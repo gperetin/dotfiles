@@ -267,3 +267,6 @@ let g:fzf_buffers_jump = 1
 " VimWiki
 let g:vimwiki_list = [{'path': '~/Twitter/notes/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
+
+" Pants
+nmap <leader>c :Pants<cr> | cwindow 3
