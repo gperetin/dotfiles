@@ -75,9 +75,9 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 base16_atelier-dune
 
 # Use fzf for Ctrl-R search
-[ -f ~/.config/fzf/key-bindings.zsh ] && source ~/.config/fzf/key-bindings.zsh
+[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 # Use fzf for completion
-[ -f ~/.config/fzf/completion.zsh ] && source ~/.config/fzf/completion.zsh
+[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
 # On Mac, somehow I got both of the above by sourcing this
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -90,9 +90,6 @@ export FZF_DEFAULT_COMMAND='
   (git ls-tree -r --name-only HEAD ||
    find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
       sed s/^..//) 2> /dev/null'
-
-# Aliases
-alias ls=exa
 
 # If there's a local .zshrc, source it
 if [[ -s "${ZDORDIR:-$HOME}/.zshrc.local" ]]; then
