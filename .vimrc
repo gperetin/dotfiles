@@ -16,7 +16,6 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vimwiki/vimwiki'
 Plug 'mhinz/vim-startify'
 Plug 'rust-lang/rust.vim'
 
