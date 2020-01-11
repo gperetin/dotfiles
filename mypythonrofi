@@ -1,0 +1,24 @@
+#!/usr/bin/env python
+
+import os
+import subprocess
+import sys
+
+# Here are the docs on how rofi runs this https://github.com/davatorium/rofi/wiki/mode-Specs
+
+if __name__ == "__main__":
+    if len(sys.argv) == 1:
+        print("Suspend")
+        print(" Power Off")
+        print(" Reboot")
+    else:
+        # called second time, we have a selection
+        selection = sys.argv[1]
+        if selection == "Suspend":
+            subprocess.run(["amixer", "set", "Master", "mute"])
+            subprocess.run(["systemctl", "suspend"])
+        elif selection == " Power Off":
+            subprocess.run(["systemctl", "poweroff"])
+        elif selection == " Reboot":
+            subprocess.run(["systemctl", "reboot"])
+
