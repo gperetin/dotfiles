@@ -41,3 +41,5 @@ otherwise, when booted into i3, there's no way to launch a terminal
 * syncthing
   * make sure to enable it in systemd with, `systemctl --user enable
       syncthing.service`
+* nvidia-settings
+  * this is a must, it's really easy to configure screen setups and it generates `/etc/X11/xorg.conf`
