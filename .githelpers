@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This is shamelessly stolen from Gary Bernhardt. Thanks Gary!
+# https://github.com/garybernhardt/dotfiles/blob/master/.githelpers
+
 # Log output:
 #
 # * 51c333e    (12 days)    <Gary Bernhardt>   add vim-eunuch
@@ -19,13 +22,36 @@ AUTHOR="%C(bold blue)<%an>%Creset"
 REFS="%C(red)%d%Creset"
 SUBJECT="%s"
 
+LOG_HASH="%C(always,yellow)%h%C(always,reset)"
+LOG_RELATIVE_TIME="%C(always,green)(%ar)%C(always,reset)"
+LOG_AUTHOR="%C(always,blue)<%an>%C(always,reset)"
+LOG_SUBJECT="%s"
+LOG_REFS="%C(always,red)%d%C(always,reset)"
+
+LOG_FORMAT="$LOG_HASH}$LOG_RELATIVE_TIME}$LOG_AUTHOR}$LOG_REFS $LOG_SUBJECT"
+
 FORMAT="$HASH}$RELATIVE_TIME}$AUTHOR}$REFS $SUBJECT"
 
+pretty_git_format() {
+    # Replace (2 years ago) with (2 years)
+    sed -Ee 's/(^[^<]*) ago\)/\1)/' |
+    # Replace (2 years, 5 months) with (2 years)
+    sed -Ee 's/(^[^<]*), [[:digit:]]+ .*months?\)/\1)/' |
+    # Line columns up based on } delimiter
+    column -s '}' -t
+}
+
+git_page_maybe() {
+    # Page only if we're asked to.
+    if [ -n "$GIT_NO_PAGER" ]; then
+        cat
+    else
+        # Page only if needed.
+        less --quit-if-one-screen --no-init --RAW-CONTROL-CHARS --chop-long-lines
+    fi
+}
+
 pretty_git_log() {
-    git log --graph --abbrev-commit --date=relative --pretty="tformat:${FORMAT}" $* |
-        # Line columns up based on } delimiter
-        column -s '}' -t |
-        # Page only if we need to
-        less -FXRS
+    git log --graph --pretty="tformat:${LOG_FORMAT}" --no-show-signature $* | pretty_git_format | git_page_maybe
 }
 
