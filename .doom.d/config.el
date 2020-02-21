@@ -21,7 +21,7 @@
 ;; test
 ;; (setq doom-font (font-spec :family "Bitstream Vera Sans Mono" :size 16)
 (setq doom-font (font-spec :family "Hack NF" :size 16)
-      doom-variable-pitch-font (font-spec :family "Tahoma"))
+      doom-variable-pitch-font (font-spec :family "sans"))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -41,6 +41,27 @@
 
 (setq org-directory "~/Notes")
 (setq org-default-notes-file "~/Notes/inbox.org")
+
+;; Attach a timestamp when a TODO item is market done
+(setq org-log-done 'time)
+
+; (after! org
+(use-package! org-roam
+
+  :hook ((org-mode . org-roam-mode)
+         (after-init . org-roam--build-cache-async)) ;; optional!
+  ;;  )
+  :config
+  (setq org-roam-directory "~/Notes/roam")
+
+  (map!
+   "C-c n l" #'org-roam
+   "C-c n t" #'org-roam-today
+   "C-c n f" #'org-roam-find-file
+   "C-c n i" #'org-roam-insert
+   "C-c n g" #'org-roam-show-graph
+   )
+  )
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

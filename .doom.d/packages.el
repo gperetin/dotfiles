@@ -20,6 +20,9 @@
 ;(package! another-package
 ;  :recipe (:host github :repo "username/repo"))
 
+(package! org-roam
+  :recipe (:host github :repo "jethrokuan/org-roam" :branch "develop"))
+
 ;; If the package you are trying to install does not contain a PACKAGENAME.el
 ;; file, or is located in a subdirectory of the repo, you'll need to specify
 ;; `:files' in the `:recipe':
@@ -29,7 +32,7 @@
 
 ;; If you'd like to disable a package included with Doom, for whatever reason,
 ;; you can do so here with the `:disable' property:
-;(package! builtin-package :disable t)
+;; (package! undo-tree :disable t)
 
 ;; You can override the recipe of a built in package without having to specify
 ;; all the properties for `:recipe'. These will inherit the rest of its recipe
