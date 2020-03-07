@@ -33,6 +33,13 @@ git-prompt-info() {
   echo " %f${vcs_info_msg_0_}%f"
 }
 
+suspended-jobs() {
+  local numsuspendedjobs=`jobs | wc -l`
+  if [ $numsuspendedjobs != '0' ]; then
+      echo "💤 "
+  fi
+}
+
 git-dirty() {
   test -z "$(command git status --porcelain --ignore-submodules -unormal)"
   if [[ $? -eq 1 ]]; then
@@ -45,12 +52,15 @@ git-dirty() {
 # Prompt
 # NerdFonts have to be installed for this prompt to work https://nerdfonts.com/
 setopt PROMPT_SUBST
-PROMPT='%F{magenta}%1~$(git-prompt-info)%f ❯ '
+PROMPT='$(suspended-jobs)%F{magenta}%1~$(git-prompt-info)%f ❯ '
 
 # More history
 export HISTSIZE=100000
 export HISTFILE="$HOME/.history"
 export SAVEHIST=$HISTSIZE
+
+setopt HIST_IGNORE_ALL_DUPS
+setopt SHARE_HISTORY
 
 # Remove until '/' when using Ctrl-W
 backward-kill-dir () {

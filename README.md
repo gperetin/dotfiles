@@ -19,6 +19,7 @@ otherwise, when booted into i3, there's no way to launch a terminal
   * [[ttf-font-awesome]]
   * tth-material-icons-git (from AUR)
   * Inconsolata and Hack from https://www.nerdfonts.com/
+  * noto-fonts-emoji for terminal emojis
 * git
 * wpa_supplicant
 * wifi-menu
