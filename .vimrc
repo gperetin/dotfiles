@@ -19,6 +19,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
 Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
+Plug 'ycm-core/YouCompleteMe'
 
 call plug#end()
 
@@ -270,3 +271,7 @@ let g:vimwiki_list = [{'path': '~/Twitter/notes/',
 
 " Pants
 nmap <leader>c :Pants<cr> | cwindow 3
+
+" YouCompleteMe
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_extra_conf_globlist = ['~/Code/*']
