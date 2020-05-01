@@ -275,3 +275,27 @@ nmap <leader>c :Pants<cr> | cwindow 3
 " YouCompleteMe
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_extra_conf_globlist = ['~/Code/*']
+
+" Run tests for current Python file
+function! RunTestsForCurrentFile()
+    :w
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    exec ":! make test-file filepath=%"
+endfunction
+
+function! RunAllTests()
+    :w
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    exec ":! make test"
+endfunction
+
+map <leader>t :call RunTestsForCurrentFile()<cr>
+map <leader>a :call RunAllTests()<cr>
