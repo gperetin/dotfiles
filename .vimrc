@@ -5,7 +5,6 @@ call plug#begin()
 
 Plug 'tpope/vim-fugitive'
 Plug 'bling/vim-airline'
-Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-commentary'
 Plug 'ervandew/supertab'
 Plug 'scrooloose/syntastic'
@@ -141,16 +140,7 @@ set wildmode=longest,list
 " :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 ":hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 
-
-" ctrlp config
-let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_max_height = 10
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-
 let g:SuperTabDefaultCompletionType = "<c-p>"
-au FileType ocaml call SuperTabSetDefaultCompletionType("<c-x><c-o>")
-au FileType ocaml setl sw=2 sts=2 et
 
 " Rename current file
 function! RenameFile()
@@ -178,7 +168,6 @@ command! FZFMru call fzf#run({
 \  'options': '-m -x +s',
 \  'down':    '40%'})
 
-map <leader>gt :CtrlPTag<cr>
 map <leader>f :GFiles<cr>
 map <leader>F :Files<cr>
 map <leader>b :Buffers<cr>
