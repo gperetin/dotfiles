@@ -20,6 +20,8 @@ otherwise, when booted into i3, there's no way to launch a terminal
   * tth-material-icons-git (from AUR)
   * Inconsolata and Hack from https://www.nerdfonts.com/
   * noto-fonts-emoji for terminal emojis
+  * this is where the picker is https://www.nerdfonts.com/cheat-sheet, it can
+      be pasted into terminal as well
 * git
 * wpa_supplicant
 * wifi-menu
