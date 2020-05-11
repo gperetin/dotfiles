@@ -20,9 +20,9 @@
 ;; font string. You generally only need these two:
 ;; test
 ;; (setq doom-font (font-spec :family "Bitstream Vera Sans Mono" :size 16)
-(setq doom-font (font-spec :family "Hack NF" :size 18)
+(setq doom-font (font-spec :family "Hack Nerd Font Mono" :size 18)
       doom-variable-pitch-font (font-spec :family "Bitstream Vera Sans" :size 18)
-      doom-serfi-font (font-spec :family "Bitstream Vera Sans" :size 18))
+      doom-serif-font (font-spec :family "Bitstream Vera Sans" :size 18))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -38,7 +38,6 @@
 
 
 ;; Goran's customization from here down
-(setq org-bullets-bullet-list '("◉" "○" "硫" ""))
 
 (setq org-directory "~/Notes")
 (setq org-default-notes-file "~/Notes/inbox.org")
@@ -63,6 +62,9 @@
   (setq org-roam-directory "~/Notes/roam")
   :config
   (org-roam-mode +1))
+
+(setq org-superstar-headline-bullets-list '("◉" "○" "" ""))
+
 
 ; (progn
 ;   ;; use variable-width font for some modes
