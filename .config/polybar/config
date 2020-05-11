@@ -187,7 +187,6 @@ label-disconnected-foreground = #66
 [module/pulseaudio]
 ; Check here https://github.com/polybar/polybar/wiki/Module:-pulseaudio for how to configure this
 type = internal/pulseaudio
-sink = alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo
 use-ui-max = true
 interval = 5
 
