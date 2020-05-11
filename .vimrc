@@ -138,7 +138,6 @@ set wildmode=longest,list
 
 " Put useful info in status line
 " :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
-":hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 
 let g:SuperTabDefaultCompletionType = "<c-p>"
 
@@ -153,7 +152,6 @@ function! RenameFile()
     endif
 endfunction
 map <leader>n :call RenameFile()<cr>
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
@@ -172,7 +170,6 @@ map <leader>f :GFiles<cr>
 map <leader>F :Files<cr>
 map <leader>b :Buffers<cr>
 map <leader>m :FZFMru<cr>
-
 
 " Search for the word under cursor
 nnoremap <silent> <Leader>rg :Rg <C-R><C-W><CR>
@@ -258,12 +255,28 @@ let g:fzf_buffers_jump = 1
 let g:vimwiki_list = [{'path': '~/Twitter/notes/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 
-" Pants
-nmap <leader>c :Pants<cr> | cwindow 3
-
 " YouCompleteMe
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_extra_conf_globlist = ['~/Code/*']
+let g:ycm_autoclose_preview_window_after_completion = 1
+
+" YouCompleteMe Rust setup (from
+" https://rust-analyzer.github.io/manual.html#rust-analyzer-language-server-binary)
+let g:ycm_language_server =
+\ [
+\   {
+\     'name': 'rust',
+\     'cmdline': ['rust-analyzer'],
+\     'filetypes': ['rust'],
+\     'project_root_files': ['Cargo.toml']
+\   }
+\ ]
+
+map <C-p> :YcmCompleter GoToDefinition<CR>
+
+highlight Pmenu ctermfg=13 ctermbg=0 guifg=#87ffff guibg=#000000
+highlight PmenuSel ctermfg=13 ctermbg=0 guifg=#ff5fd7 guibg=#000000
+
 
 " Run tests for current Python file
 function! RunTestsForCurrentFile()
