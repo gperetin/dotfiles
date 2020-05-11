@@ -20,8 +20,9 @@
 ;; font string. You generally only need these two:
 ;; test
 ;; (setq doom-font (font-spec :family "Bitstream Vera Sans Mono" :size 16)
-(setq doom-font (font-spec :family "Hack NF" :size 16)
-      doom-variable-pitch-font (font-spec :family "sans"))
+(setq doom-font (font-spec :family "Hack NF" :size 18)
+      doom-variable-pitch-font (font-spec :family "Bitstream Vera Sans" :size 18)
+      doom-serfi-font (font-spec :family "Bitstream Vera Sans" :size 18))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -47,13 +48,11 @@
 
 ; (after! org
 (use-package! org-roam
-
-  :hook ((org-mode . org-roam-mode)
-         (after-init . org-roam--build-cache-async)) ;; optional!
-  ;;  )
-  :config
-  (setq org-roam-directory "~/Notes/roam")
-
+  :hook
+  (after-init . org-roam-mode)
+  :custom-face
+  (org-roam-link ((t (:inherit org-link :foreground "#af87ff"))))
+  :init
   (map!
    "C-c n l" #'org-roam
    "C-c n t" #'org-roam-today
@@ -61,7 +60,18 @@
    "C-c n i" #'org-roam-insert
    "C-c n g" #'org-roam-show-graph
    )
-  )
+  (setq org-roam-directory "~/Notes/roam")
+  :config
+  (org-roam-mode +1))
+
+; (progn
+;   ;; use variable-width font for some modes
+;   (defun use-variable-width-font ()
+;     "Set current buffer to use variable-width font."
+;     (variable-pitch-mode 1)
+;     ;; (text-scale-increase 1 )
+;     )
+;   (add-hook 'org-mode-hook 'use-variable-width-font))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
