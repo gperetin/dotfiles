@@ -11,6 +11,6 @@ else
     elif [[ $1 = "鈴Suspend" ]]; then
         systemctl suspend
     elif [[ $1 = "祥 Set Timer" ]]; then
-        systemd-run --on-active=2250 --user --service-type=oneshot notify-send "Take a break"
+        systemd-run --on-active=2700 --user --service-type=oneshot notify-send "Take a break"
     fi
 fi
