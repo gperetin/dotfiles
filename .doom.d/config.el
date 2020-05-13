@@ -67,6 +67,12 @@
    )
   (setq org-roam-directory "~/Notes/roam")
   :config
+  (setq org-roam-capture-templates
+       '(("d" "default" plain (function org-roam--capture-get-point)
+             "%?"
+             :file-name "%<%Y%m%d%H%M%S>-${slug}"
+             :head "#+TITLE: ${title}\n#+CREATED_AT: %<%Y-%m-%d>\n"
+             :unnarrowed t)))
   (org-roam-mode +1))
 
 (setq org-superstar-headline-bullets-list '("◉" "○" "" ""))
