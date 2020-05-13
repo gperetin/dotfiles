@@ -56,7 +56,7 @@
   :hook
   (after-init . org-roam-mode)
   :custom-face
-  (org-roam-link ((t (:inherit org-link :foreground "#af87ff"))))
+  (org-roam-link ((t (:inherit org-link :foreground "lime green" :weight normal :slant italic))))
   :init
   (map!
    "C-c n l" #'org-roam
