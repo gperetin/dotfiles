@@ -24,12 +24,13 @@
 ;; test
 ;; (setq doom-font (font-spec :family "Bitstream Vera Sans Mono" :size 16)
 (setq doom-font (font-spec :family "Hack Nerd Font Mono" :size 18)
-      doom-variable-pitch-font (font-spec :family "Bitstream Vera Sans" :size 18)
+      doom-variable-pitch-font (font-spec :family "Inter" :size 18)
       doom-serif-font (font-spec :family "Bitstream Vera Sans" :size 18))
 
 (custom-theme-set-faces
  'user
  '(org-block ((t (:inherit fixed-pitch))))
+ '(org-link ((t (:inherit variable-pitch :weight normal :underline t :foreground "#5fd7ff"))))
  '(org-code ((t (:inherit (shadow fixed-pitch)))))
  '(org-table ((t (:inherit fixed-pitch)))))
 
