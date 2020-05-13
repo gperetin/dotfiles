@@ -9,6 +9,9 @@
 (setq user-full-name "Goran Peretin"
       user-mail-address "goran.peretin@gmail.com")
 
+(setq org-list-indent-offset 1)
+(load! "lisp/org-variable-pitch.el")
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -77,8 +80,17 @@
 
 (setq org-superstar-headline-bullets-list '("◉" "○" "" ""))
 
-(add-hook 'org-mode-hook 'variable-pitch-mode)
+; (add-hook 'org-mode-hook 'variable-pitch-mode)
 (setq display-line-numbers-type nil)
+
+(add-hook 'org-mode-hook (lambda ()
+                             (setq line-spacing 0.1)))
+
+(add-hook 'org-mode-hook 'org-variable-pitch-minor-mode)
+
+(font-lock-add-keywords 'org-mode
+                        '(("^ *\\([-]\\) "
+                           (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
 ; (progn
 ;   ;; use variable-width font for some modes
