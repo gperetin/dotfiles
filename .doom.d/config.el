@@ -24,6 +24,12 @@
       doom-variable-pitch-font (font-spec :family "Bitstream Vera Sans" :size 18)
       doom-serif-font (font-spec :family "Bitstream Vera Sans" :size 18))
 
+(custom-theme-set-faces
+ 'user
+ '(org-block ((t (:inherit fixed-pitch))))
+ '(org-code ((t (:inherit (shadow fixed-pitch)))))
+ '(org-table ((t (:inherit fixed-pitch)))))
+
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
@@ -65,6 +71,8 @@
 
 (setq org-superstar-headline-bullets-list '("◉" "○" "" ""))
 
+(add-hook 'org-mode-hook 'variable-pitch-mode)
+(setq display-line-numbers-type nil)
 
 ; (progn
 ;   ;; use variable-width font for some modes
