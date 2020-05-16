@@ -24,13 +24,14 @@
 ;; test
 ;; (setq doom-font (font-spec :family "Bitstream Vera Sans Mono" :size 16)
 (setq doom-font (font-spec :family "Hack Nerd Font Mono" :size 18)
-      doom-variable-pitch-font (font-spec :family "Inter" :size 18)
+      doom-variable-pitch-font (font-spec :family "Inter" :size 16)
       doom-serif-font (font-spec :family "Bitstream Vera Sans" :size 18))
 
 (custom-theme-set-faces
  'user
  '(org-block ((t (:inherit fixed-pitch))))
  '(org-link ((t (:inherit variable-pitch :weight normal :underline t :foreground "#5fd7ff"))))
+ '(org-level-1 ((t (:inherit variable-pitch :weight bold :height 1.2 :foreground "#d7afff"))))
  '(org-code ((t (:inherit (shadow fixed-pitch)))))
  '(org-table ((t (:inherit fixed-pitch)))))
 
@@ -38,6 +39,7 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
 (setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-tomorrow-day)
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
@@ -75,7 +77,7 @@
        '(("d" "default" plain (function org-roam--capture-get-point)
              "%?"
              :file-name "%<%Y%m%d%H%M%S>-${slug}"
-             :head "#+TITLE: ${title}\n#+CREATED_AT: %<%Y-%m-%d>\n"
+             :head "#+TITLE: ${title}\n#+CREATED_AT: %<%Y-%m-%d>\n#+ROAM_TAGS:\n"
              :unnarrowed t)))
   (org-roam-mode +1))
 
