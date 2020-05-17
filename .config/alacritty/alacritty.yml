@@ -45,17 +45,11 @@ scrolling:
   # scrollback is enabled (history > 0).
   multiplier: 3
 
-  # Scroll to the bottom when new text is written to the terminal.
-  auto_scroll: false
-
 # Spaces per Tab (changes require restart)
 #
 # This setting defines the width of a tab in cells.
 #
 # Some applications, like Emacs, rely on knowing about the width of a tab.
-# To prevent unexpected behavior in these applications, it's also required to
-# change the `it` value in terminfo when altering this setting.
-tabspaces: 4
 
 # Font configuration (changes require restart)
 #
@@ -80,20 +74,21 @@ font:
     # family: SourceCodePro
     # family: monospace
     family: Hack Nerd Font Mono
+    #family: M
     # The `style` can be specified to pick a specific face.
     #style: Regular
 
   # Bold font face
   bold:
-    family: Inconsolata-dz
+    family: Hack Nerd Font Mono
     # The `style` can be specified to pick a specific face.
-    #style: Bold
+    style: Bold
 
   # Italic font face
   italic:
-    family: Inconsolata-dz
+    family: Hack Nerd Font Mono
     # The `style` can be specified to pick a specific face.
-    #style: Italic
+    style: Italic
 
   # Point size
   size: 11.0
@@ -119,7 +114,7 @@ font:
   # scale_with_dpi: true
 
 # If `true`, bold text is drawn using the bright color variants.
-draw_bold_text_with_bright_colors: true
+draw_bold_text_with_bright_colors: false
 
 # Colors (Tomorrow Night Bright)
 colors:
