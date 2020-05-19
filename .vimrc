@@ -257,6 +257,7 @@ let g:vimwiki_list = [{'path': '~/Twitter/notes/',
 
 " YouCompleteMe
 let g:ycm_confirm_extra_conf = 0
+let g:ycm_auto_hover = ""
 let g:ycm_extra_conf_globlist = ['~/Code/*']
 let g:ycm_autoclose_preview_window_after_completion = 1
 
@@ -273,6 +274,7 @@ let g:ycm_language_server =
 \ ]
 
 map <C-p> :YcmCompleter GoToDefinition<CR>
+nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 
 highlight Pmenu ctermfg=13 ctermbg=0 guifg=#87ffff guibg=#000000
 highlight PmenuSel ctermfg=13 ctermbg=0 guifg=#ff5fd7 guibg=#000000
