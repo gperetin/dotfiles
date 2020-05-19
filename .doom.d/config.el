@@ -27,6 +27,8 @@
       doom-variable-pitch-font (font-spec :family "Inter" :size 16)
       doom-serif-font (font-spec :family "Bitstream Vera Sans" :size 18))
 
+;; See here on what can be specified here
+;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Face-Attributes.html#Face-Attributes
 (custom-theme-set-faces
  'user
  '(org-block ((t (:inherit fixed-pitch))))
