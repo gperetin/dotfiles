@@ -3,14 +3,14 @@
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
-#env:
+env:
   # TERM variable
   #
   # This value is used to set the `$TERM` environment variable for
   # each instance of Alacritty. If it is not present, alacritty will
   # check the local terminfo database and use 'alacritty' if it is
   # available, otherwise 'xterm-256color' is used.
-  #TERM: xterm-256color
+  TERM: xterm-256color
 
 window:
   # Window dimensions (changes require restart)
@@ -26,8 +26,8 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 8
-    y: 8
+    x: 5
+    y: 5
 
   # Window decorations
   #
@@ -91,7 +91,7 @@ font:
     style: Italic
 
   # Point size
-  size: 11.0
+  size: 12.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -116,41 +116,64 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: false
 
-# Colors (Tomorrow Night Bright)
 colors:
 
   # Base16 Atelier Dune Dark colors
+  # primary:
+  #   background: '0x20201d'
+  #   foreground: '0xa6a28c'
+
+  # # Colors the cursor will use if `custom_cursor_colors` is true
+  # cursor:
+  #   text: '0x20201d'
+  #   cursor: '0xa6a28c'
+
+  # # Normal colors
+  # normal:
+  #   black:   '0x20201d'
+  #   red:     '0xd73737'
+  #   green:   '0x60ac39'
+  #   yellow:  '0xae9513'
+  #   blue:    '0x6684e1'
+  #   magenta: '0xb854d4'
+  #   cyan:    '0x1fad83'
+  #   white:   '0xa6a28c'
+
+  # # Bright colors
+  # bright:
+  #   black:   '0x7d7a68'
+  #   red:     '0xb65611'
+  #   green:   '0x292824'
+  #   yellow:  '0x6e6b5e'
+  #   blue:    '0x999580'
+  #   magenta: '0xe8e4cf'
+  #   cyan:    '0xd43552'
+  #   white: '0xfefbec'
+
+  # Gruvbox Material Dark Medium
   primary:
-    background: '0x20201d'
-    foreground: '0xa6a28c'
+    background: '0x000000'
+    foreground: '0xdfbf8e'
 
-  # Colors the cursor will use if `custom_cursor_colors` is true
-  cursor:
-    text: '0x20201d'
-    cursor: '0xa6a28c'
-
-  # Normal colors
   normal:
-    black:   '0x20201d'
-    red:     '0xd73737'
-    green:   '0x60ac39'
-    yellow:  '0xae9513'
-    blue:    '0x6684e1'
-    magenta: '0xb854d4'
-    cyan:    '0x1fad83'
-    white:   '0xa6a28c'
+    black:   '0x665c54'
+    red:     '0xea6962'
+    green:   '0xa9b665'
+    yellow:  '0xe78a4e'
+    blue:    '0x7daea3'
+    magenta: '0xd3869b'
+    cyan:    '0x89b482'
+    white:   '0xdfbf8e'
 
-  # Bright colors
   bright:
-    black:   '0x7d7a68'
-    red:     '0xb65611'
-    green:   '0x292824'
-    yellow:  '0x6e6b5e'
-    blue:    '0x999580'
-    magenta: '0xe8e4cf'
-    cyan:    '0xd43552'
-    white: '0xfefbec'
-
+    black:   '0x928374'
+    red:     '0xea6962'
+    green:   '0xa9b665'
+    yellow:  '0xe3a84e'
+    blue:    '0x7daea3'
+    magenta: '0xd3869b'
+    cyan:    '0x89b482'
+    white:   '0xdfbf8e'
  
   
   # Default colors
