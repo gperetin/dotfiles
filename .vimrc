@@ -7,11 +7,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'ervandew/supertab'
-Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree'
-Plug 'chriskempson/base16-vim'
 Plug 'plasticboy/vim-markdown'
-Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline-themes'
@@ -19,6 +16,7 @@ Plug 'mhinz/vim-startify'
 Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
 Plug 'ycm-core/YouCompleteMe'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
@@ -87,13 +85,11 @@ let mapleader=","
 set hls
 
 syntax on
+set t_Co=256
 set termguicolors
 set background=dark
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-endif
-let g:solarized_termcolors = 16
+autocmd vimenter * colorscheme gruvbox
+colorscheme gruvbox
 
 " System clipboard
 map <leader>y "*y
@@ -102,8 +98,6 @@ map <leader>y "*y
 imap <c-c> <esc>
 " Close buffer
 map qq :bd<cr>
-" Reeealy should get used to this...
-inoremap jk <esc>
 
 " Custom autocmds
 augroup vimrcEx
@@ -127,17 +121,11 @@ augroup vimrcEx
     au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,README.md  setf markdown
 
     autocmd BufWritePre *.py,*.ml :%s/\s\+$//e
-
-    " vimwiki
-    autocmd FileType vimwiki map <Space> <Plug>VimwikiToggleListItem
 augroup END
 
 
 " Use emacs-style tab completion when selecting files, etc
 set wildmode=longest,list
-
-" Put useful info in status line
-" :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
 
 let g:SuperTabDefaultCompletionType = "<c-p>"
 
@@ -210,23 +198,13 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
-" Exclude from ctrlp search
-let g:ctrlp_custom_ignore = {
-    \ 'dir':  'utils/node_modules\|\.git$\|\.hg$\|\.svn$',
-    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.jpg$\|\.png$\|\.pyc$',
-    \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-    \ }
-
-let g:syntastic_python_checkers=[]
-
-
-let g:syntastic_ocaml_checkers = ['merlin']
-
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-map <leader>c :SyntasticCheck<cr>
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
 
 let g:airline_left_sep=''
 let g:airline_right_sep=''
+let g:airline_symbols.branch = ''
 
 map <C-n> :NERDTreeToggle<CR>
 
@@ -246,14 +224,9 @@ if has("nvim")
   set mouse=a
 endif
 
-
 " FZF config
 let g:fzf_layout = { 'down': '~40%' }
 let g:fzf_buffers_jump = 1
-
-" VimWiki
-let g:vimwiki_list = [{'path': '~/Twitter/notes/',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " YouCompleteMe
 let g:ycm_confirm_extra_conf = 0
@@ -274,10 +247,19 @@ let g:ycm_language_server =
 \ ]
 
 map <C-p> :YcmCompleter GoToDefinition<CR>
-nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 
 highlight Pmenu ctermfg=13 ctermbg=0 guifg=#87ffff guibg=#000000
 highlight PmenuSel ctermfg=13 ctermbg=0 guifg=#ff5fd7 guibg=#000000
+
+" highlight YcmErrorLine guibg=NONE
+" highlight YcmWarningLine guibg=NONE
+" highlight YcmErrorSection  guibg=#303030 guisp=#ff0000 gui=undercurl
+" highlight YcmErrorSection gui=undercurl guisp=#ff0000 cterm=underline guifg=#ff0087
+" highlight YcmWarningSection guisp=#ff0000 cterm=undercurl ctermbg=8 ctermfg=11 guifg=#af8700
+" highligh YcmErrorSign guibg=NONE guifg=#ff0087
+" highligh YcmWarningSign guibg=NONE guifg=#af8700
+
+" highlight SignColumn guibg=NONE
 
 
 " Run tests for current Python file
