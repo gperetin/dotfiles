@@ -243,7 +243,7 @@ exec_always xset r rate 220 50
 
 # Make Caps lock (which is already remapped to control) emit Escape
 # if pressed on its own
-exec_always xcape -e 'Control_L=Escape'
+# exec_always xcape -e 'Control_L=Escape'
 
 # Set the wallpaper
 exec_always feh --bg-scale /home/goran/Misc/space3.jpg /home/goran/Misc/galaxy.jpg
