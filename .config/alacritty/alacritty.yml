@@ -429,6 +429,8 @@ live_config_reload: true
 #   - ~AppKeypad
 #   - AppKeypad
 key_bindings:
+  # Replace Ctrl-z with Ctrl-s, easier to reach
+  - { key: S,        mods: Control,    chars: "\x1a"               }
   - { key: V,        mods: Control|Shift,    action: Paste               }
   - { key: C,        mods: Control|Shift,    action: Copy                }
   - { key: Paste,                   action: Paste                        }

@@ -23,6 +23,9 @@ zstyle ':completion:*:default' list-colors ''
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
+# Terminal driver settings
+# Don't use suspend
+stty stop ^-
 
 # Functions
 git-prompt-info() {
