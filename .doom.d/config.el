@@ -12,6 +12,11 @@
 (setq org-list-indent-offset 1)
 (load! "lisp/org-variable-pitch.el")
 
+;; Commented out until I figure out how to make the color of the padding
+;; the same as the color of the theme, and how to make the padding be
+;; for each split, not the global window
+;; (add-to-list 'default-frame-alist '(internal-border-width . 20))
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -37,21 +42,20 @@
  '(org-code ((t (:inherit (shadow fixed-pitch)))))
  '(org-table ((t (:inherit fixed-pitch)))))
 
+
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
 (setq doom-theme 'doom-one)
-;; (setq doom-theme 'doom-tomorrow-day)
+;;(setq doom-theme 'doom-tomorrow-day)
+;; (set-face-background 'default "#ffffff")
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
-(setq display-line-numbers-type t)
-
-
-;; Goran's customization from here down
+(setq display-line-numbers-type nil)
 
 (setq org-directory "~/Notes")
 (setq org-default-notes-file "~/Notes/inbox.org")
@@ -68,7 +72,8 @@
   :init
   (map!
    "C-c n l" #'org-roam
-   "C-c n t" #'org-roam-today
+   "C-c n t" #'org-roam-dailies-today
+   "C-c n y" #'org-roam-dailies-yesterday
    "C-c n f" #'org-roam-find-file
    "C-c n i" #'org-roam-insert
    "C-c n g" #'org-roam-show-graph
@@ -81,12 +86,12 @@
              :file-name "%<%Y%m%d%H%M%S>-${slug}"
              :head "#+TITLE: ${title}\n#+CREATED_AT: %<%Y-%m-%d>\n#+ROAM_TAGS:\n"
              :unnarrowed t)))
+  (setq org-roam-buffer-width 0.25)
   (org-roam-mode +1))
 
 (setq org-superstar-headline-bullets-list '("◉" "○" "" ""))
 
 ; (add-hook 'org-mode-hook 'variable-pitch-mode)
-(setq display-line-numbers-type nil)
 
 (add-hook 'org-mode-hook (lambda ()
                              (setq line-spacing 0.1)))
@@ -96,6 +101,12 @@
 (font-lock-add-keywords 'org-mode
                         '(("^ *\\([-]\\) "
                            (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+
+(map!
+    "C-\\" #'evil-window-vsplit
+    "C-q"  #'evil-window-delete 
+    )
 
 ; (progn
 ;   ;; use variable-width font for some modes
