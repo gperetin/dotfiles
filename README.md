@@ -46,6 +46,11 @@ otherwise, when booted into i3, there's no way to launch a terminal
       syncthing.service`
 * nvidia-settings
   * this is a must, it's really easy to configure screen setups and it generates `/etc/X11/xorg.conf`
+* nfancurve
+  * this is for controling the fan speed on the graphics card. Without this,
+      fan is jerky and keeps spinning up and making weird clicks.
+  * don't forget to set Coolbits parameter in xorg.conf, it's in USAGE docs
+      for nfancurve
 
 ## Other
 
