@@ -14,6 +14,10 @@ zstyle ':vcs_info:*' enable git
 # General config
 setopt no_beep
 
+# Add to PATH
+export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
+
+
 # Completion settings
 # ===================
 # This makes it so that <TAB> iterates over options
