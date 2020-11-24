@@ -13,6 +13,12 @@ Plug 'scrooloose/nerdtree'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 
+" Needed for telescope
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+
 call plug#end()
 
 " Apparently, these 2 speed things up (esp with NERDTree) and I don't use them anyways
@@ -34,10 +40,15 @@ set switchbuf=useopen
 set showtabline=0
 set fileencoding=utf-8
 set gdefault
+" Store temporary files in a central spot
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backup
 set noswapfile
 
 let mapleader=","
+
+" Alternate window
+nnoremap <leader><leader> <c-^>
 
 " Keep more context when scrolling off the end of a buffer
 set scrolloff=3
@@ -71,6 +82,60 @@ lua <<EOF
 require'lspconfig'.rust_analyzer.setup{ on_attach=require'completion'.on_attach }
 EOF
 
+lua <<EOF
+require'nvim-web-devicons'.setup {
+ -- your personnal icons can go here (to override)
+ -- DevIcon will be appended to `name`
+ override = {
+  zsh = {
+    icon = "",
+    color = "#428850",
+    name = "Zsh"
+  }
+ };
+ -- globally enable default icons (default to false)
+ -- will get overriden by `get_icons` option
+ default = true;
+}
+EOF
+
+lua <<EOF
+
+local actions = require('telescope.actions')
+require('telescope').setup{
+  defaults = {
+    mappings = {
+      i = {
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+      }
+    }
+  }
+}
+
+EOF
+
+nnoremap <Leader>f :lua require'telescope.builtin'.git_files(require('telescope.themes').get_dropdown({ winblend = 5 }))<cr>
+map <Leader>b :Buffers<cr>
+
+" MRU file search
+" This is the only feature for which we still use FZF.
+" This could be replaced with Telescope's oldfiles, but I like it that we can
+" pass in some options here.
+command! FZFMru call fzf#run({
+\  'source':  v:oldfiles,
+\  'sink':    'e',
+\  'options': '-m -x +s',
+\  'down':    '40%'})
+map <Leader>m :FZFMru<cr>
+
+
+" Search for word under cursor
+nnoremap <silent> <Leader>rg :lua require'telescope.builtin'.grep_string()<CR>
+
+" Search in quickfix
+nnoremap <silent> <Leader>q :lua require'telescope.builtin'.quickfix()<CR>
+
 " Clear the search buffer when hitting return
 :nnoremap <CR> :nohlsearch<cr>
 
@@ -79,9 +144,9 @@ map <C-n> :NERDTreeToggle<CR>
 
 " LSP keyboard shortcuts
 nnoremap <silent> <c-p> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <c-e> <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> R <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <c-h> <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> <c-t> <cmd>lua vim.lsp.buf.rename()<CR>
 
 " Make escape work in the Neovim terminal.
 " Turned off for now - this messed with the open file dialog
@@ -100,7 +165,6 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 " - Check here https://blog.ffff.lt/posts/neovim-native-lsp-support-attempt-1/
 " and set some shortcuts for completion
-" - Install telescope
 " - Move shortcuts from .vimrc such as find file, run tests, etc.
 " - configure inline type hints (has to be somewhere in LSP config)
 
