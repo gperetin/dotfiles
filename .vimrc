@@ -15,7 +15,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
 Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
-Plug 'ycm-core/YouCompleteMe'
 Plug 'morhetz/gruvbox'
 
 call plug#end()
@@ -227,26 +226,6 @@ endif
 " FZF config
 let g:fzf_layout = { 'down': '~40%' }
 let g:fzf_buffers_jump = 1
-
-" YouCompleteMe
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_auto_hover = ""
-let g:ycm_extra_conf_globlist = ['~/Code/*']
-let g:ycm_autoclose_preview_window_after_completion = 1
-
-" YouCompleteMe Rust setup (from
-" https://rust-analyzer.github.io/manual.html#rust-analyzer-language-server-binary)
-let g:ycm_language_server =
-\ [
-\   {
-\     'name': 'rust',
-\     'cmdline': ['rust-analyzer'],
-\     'filetypes': ['rust'],
-\     'project_root_files': ['Cargo.toml']
-\   }
-\ ]
-
-map <C-p> :YcmCompleter GoToDefinition<CR>
 
 highlight Pmenu ctermfg=13 ctermbg=0 guifg=#87ffff guibg=#000000
 highlight PmenuSel ctermfg=13 ctermbg=0 guifg=#ff5fd7 guibg=#000000

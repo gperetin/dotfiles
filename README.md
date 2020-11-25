@@ -14,6 +14,10 @@ otherwise, when booted into i3, there's no way to launch a terminal
 * vim
   * to bootstrap, just install vim-plug and symlink .vimrc
   * vim-plug install instructions https://github.com/junegunn/vim-plug
+* neovim
+  * for LSP support, install desired language servers. For Rust, use
+      rust-analyzer (make sure it's in $PATH). For Python, pyls_ms
+  * for latter, don't forget to install dotnet-runtime https://wiki.archlinux.org/index.php/.NET_Core
 * fzf
 * fonts
   * [[ttf-font-awesome]]
@@ -51,6 +55,7 @@ otherwise, when booted into i3, there's no way to launch a terminal
       fan is jerky and keeps spinning up and making weird clicks.
   * don't forget to set Coolbits parameter in xorg.conf, it's in USAGE docs
       for nfancurve
+* to tweak the mouse settings, use libinput https://wiki.archlinux.org/index.php/Mouse_acceleration#Mouse_acceleration_with_libinput
 
 ## Other
 
