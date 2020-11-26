@@ -44,6 +44,8 @@ otherwise, when booted into i3, there's no way to launch a terminal
 * redshift
   * config file is in the dotfiles repo, that's where the location is specified as well
   * don't forget to `systemctl --user enable redshift.service` to have it run on startup
+  * since I'm not running a display manager, I have to edit provided systemd
+      service file, info here https://wiki.archlinux.org/index.php/Redshift#Redshift_works_fine_when_invoked_as_a_command_but_fails_when_run_as_a_systemd_service
 * pulseaudio
 * syncthing
   * make sure to enable it in systemd with, `systemctl --user enable
