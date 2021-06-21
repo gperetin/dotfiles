@@ -8,7 +8,7 @@ Plug 'tpope/vim-commentary'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'morhetz/gruvbox'
+Plug 'gruvbox-community/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
@@ -19,9 +19,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 
-call plug#end()
-
-" Apparently, these 2 speed things up (esp with NERDTree) and I don't use them anyways
+call plug#end() " Apparently, these 2 speed things up (esp with NERDTree) and I don't use them anyways
 set noshowcmd
 set noruler
 

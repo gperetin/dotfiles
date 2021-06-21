@@ -225,7 +225,11 @@ set $base0F #d43552
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Unbreak the computer. Linux is hard
-exec_always --no-startup-id systemctl --user start redshift
+# This is a bit of a hack, ideally systemd should start these
+# but I wasn't able to figure out how to set it up so it starts
+# after I log in
+exec_always --no-startup-id systemctl --user start redshift.service
+exec_always --no-startup-id systemctl --user start nfancurve.service
 
 
 # Basic color configuration using the Base16 variables for windows and borders.
@@ -248,7 +252,7 @@ exec_always xset r rate 220 50
 exec_always xcape -e 'Control_L=Escape'
 
 # Set the wallpaper
-exec_always feh --bg-scale /home/goran/Misc/space3.jpg /home/goran/Misc/galaxy.jpg
+exec_always feh --bg-scale /home/goran/Misc/space3.jpg /home/goran/Misc/stars_wallpaper.jpg
 
 # Start notification daemon
 exec --no-startup-id dunst
