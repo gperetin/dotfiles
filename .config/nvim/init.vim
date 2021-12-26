@@ -11,7 +11,14 @@ Plug 'junegunn/fzf.vim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
+
+" Completion
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lua'
+Plug 'hrsh7th/cmp-cmdline'
 
 " Needed for telescope
 Plug 'nvim-lua/popup.nvim'
@@ -71,14 +78,72 @@ set shortmess+=c
 
 " Manually trigger completion
 let g:completion_enable_auto_popup = 0
-imap <Tab> <Plug>(completion_smart_tab)
-imap <S-Tab> <Plug>(completion_smart_s_tab)
+" imap <Tab> <Plug>(completion_smart_tab)
+" imap <S-Tab> <Plug>(completion_smart_s_tab)
 
+" Setup nvim-cmp
 lua <<EOF
--- Check here to see the options we can pass to rust-analyzer
--- https://github.com/neovim/nvim-lspconfig#rust_analyzer
-require'lspconfig'.rust_analyzer.setup{ on_attach=require'completion'.on_attach }
+  local cmp = require'cmp'
+
+  cmp.setup({
+    mapping = {
+      ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ['<C-c>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+      ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+      ['<C-e>'] = cmp.mapping({
+        i = cmp.mapping.abort(),
+        c = cmp.mapping.close(),
+      }),
+
+      -- From TJ Devries, https://github.com/tjdevries/config_manager/blob/master/xdg_config/nvim/after/plugin/completion.lua#L69
+      -- If you want tab completion :'(
+      -- First you have to just promise to read `:help ins-completion`.
+      ["<Tab>"] = function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        else
+          fallback()
+        end
+      end,
+      ["<S-Tab>"] = function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item()
+        else
+          fallback()
+        end
+      end,
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    },
+
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'path' },
+    }, {
+    }, {
+      { name = 'buffer', keyword_length = 4 },
+    })
+  })
+
+  cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline', keyword_length = 3 }
+    })
+  })
+
+  -- Setup lspconfig
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+  require('lspconfig')['pyright'].setup {
+    capabilities = capabilities
+  }
+  require('lspconfig')['rust_analyzer'].setup {
+    capabilities = capabilities
+  }
 EOF
+
 
 lua <<EOF
 require'nvim-web-devicons'.setup {
@@ -113,8 +178,8 @@ require('telescope').setup{
 
 EOF
 
-nnoremap <Leader>f :lua require'telescope.builtin'.git_files(require('telescope.themes').get_dropdown({ winblend = 5 }))<cr>
-map <Leader>b :Buffers<cr>
+nnoremap <silent> <Leader>f :lua require'telescope.builtin'.git_files(require('telescope.themes').get_dropdown({ winblend = 5 }))<CR>
+map <Leader>b :Buffers<CR>
 
 " MRU file search
 " This is the only feature for which we still use FZF.
