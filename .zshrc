@@ -102,6 +102,9 @@ bindkey "^F" forward-word
 # Alias to quickly view file
 alias vf="fzf --bind 'ctrl-v:execute(vim {})+abort' --preview 'bat --style=numbers --color=always {}' --preview-window up:70%"
 
+alias e="nvim"
+alias eb="cd ~/Code/barney; source env/bin/activate"
+
 # Use git ls-tree for fast search in a git repo
 export FZF_DEFAULT_COMMAND='
   (git ls-tree -r --name-only HEAD ||
