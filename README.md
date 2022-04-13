@@ -20,6 +20,8 @@ otherwise, when booted into i3, there's no way to launch a terminal
   * for latter, don't forget to install dotnet-runtime https://wiki.archlinux.org/index.php/.NET_Core
 * fzf
 * fonts
+  * nerd-fonts-complete from AUR has the entire nerd fonts collection, it's
+      2GB though
   * [[ttf-font-awesome]]
   * tth-material-icons-git (from AUR)
   * Inconsolata and Hack from https://www.nerdfonts.com/
@@ -39,6 +41,8 @@ otherwise, when booted into i3, there's no way to launch a terminal
 * i3
 * polybar (from AUR)
 * rofi
+* lsd
+* git-delta
 * otf-insonsolata-dz
 * adobe-source-code-pro-font
 * redshift
@@ -46,6 +50,8 @@ otherwise, when booted into i3, there's no way to launch a terminal
   * don't forget to `systemctl --user enable redshift.service` to have it run on startup
   * since I'm not running a display manager, I have to edit provided systemd
       service file, info here https://wiki.archlinux.org/index.php/Redshift#Redshift_works_fine_when_invoked_as_a_command_but_fails_when_run_as_a_systemd_service
+* ranger (file manager)
+* zathura (PDF viewer) + zathura-pdf-mupdf for PDF support
 * pulseaudio
 * syncthing
   * make sure to enable it in systemd with, `systemctl --user enable
