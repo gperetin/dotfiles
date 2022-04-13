@@ -115,3 +115,7 @@ export FZF_DEFAULT_COMMAND='
 if [[ -s "${ZDORDIR:-$HOME}/.zshrc.local" ]]; then
   source "${ZDORDIR:-$HOME}/.zshrc.local"
 fi
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
