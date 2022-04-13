@@ -1,9 +1,13 @@
 [user]
     name = Goran Peretin
     email = goran.peretin@gmail.com
+
 [diff]
+    colorMoved = default
+
 [color]
     ui = auto
+
 [alias]
     st = status
     ci = commit
@@ -29,9 +33,18 @@
 
 [merge]
     tool = vimdiff
+    conflictstyle = diff3
 
 [core]
     editor = vim
+    pager = delta
 	excludesfile = /Users/goran/.gitignore_global
+
 [push]
 	default = current
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
