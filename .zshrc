@@ -1,3 +1,14 @@
+# Terminal driver settings
+# Don't use suspend
+stty stop ^-
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Created by newuser for 5.6.2
 
 autoload -Uz compinit promptinit
@@ -26,10 +37,6 @@ zstyle ':completion:*:default' list-colors ''
 # case-insensitive, partial-word, and then substring completion
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-
-# Terminal driver settings
-# Don't use suspend
-stty stop ^-
 
 # Functions
 git-prompt-info() {
