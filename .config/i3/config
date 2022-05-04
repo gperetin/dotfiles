@@ -37,7 +37,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym ctrl+space exec --no-startup-id "rofi -show-icons -theme flamingo -font 'pango 18' -show combi"
+bindsym ctrl+space exec --no-startup-id "rofi -show-icons -font 'pango 18' -show combi"
 bindsym $mod+c exec --no-startup-id "rofi -show-icons -show calc -modi calc -font 'pango 20' -no-show-match -no-sort"
 bindsym --release $mod+Shift+Delete exec --no-startup-id "i3lock -t -i ~/Documents/i3lock.png"
 
@@ -224,14 +224,6 @@ set $base0F #d43552
 # Start polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
-# Unbreak the computer. Linux is hard
-# This is a bit of a hack, ideally systemd should start these
-# but I wasn't able to figure out how to set it up so it starts
-# after I log in
-exec_always --no-startup-id systemctl --user start redshift.service
-exec_always --no-startup-id systemctl --user start nfancurve.service
-
-
 # Basic color configuration using the Base16 variables for windows and borders.
 # Property Name         Border  BG      Text    Indicator Child Border
 client.focused          #00ff5f #1c1c1c $base0c #00af5f #00af5f
@@ -252,7 +244,7 @@ exec_always xset r rate 220 50
 exec_always xcape -e 'Control_L=Escape'
 
 # Set the wallpaper
-exec_always feh --bg-scale /home/goran/Misc/space3.jpg /home/goran/Misc/stars_wallpaper.jpg
+exec_always feh --bg-scale /home/goran/Misc/space3.jpg /home/goran/Misc/galaxy.jpg
 
 # Start notification daemon
 exec --no-startup-id dunst
