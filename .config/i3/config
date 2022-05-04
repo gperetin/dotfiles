@@ -37,7 +37,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym ctrl+space exec --no-startup-id "rofi -show-icons -theme flamingo -font 'pango 18' -show combi"
+bindsym ctrl+space exec --no-startup-id "rofi -show-icons -show combi"
 bindsym $mod+c exec --no-startup-id "rofi -show-icons -show calc -modi calc -font 'pango 20' -no-show-match -no-sort"
 bindsym --release $mod+Shift+Delete exec --no-startup-id "i3lock -t -i ~/Documents/i3lock.png"
 
