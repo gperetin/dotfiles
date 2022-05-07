@@ -3,13 +3,11 @@ syntax on
 call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'tpope/vim-fugitive'
-Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'gruvbox-community/gruvbox'
-Plug 'scrooloose/nerdtree'
 Plug 'neovim/nvim-lspconfig'
 
 " Completion
@@ -24,9 +22,13 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
 
-call plug#end() " Apparently, these 2 speed things up (esp with NERDTree) and I don't use them anyways
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
+
+call plug#end()
+
+" Apparently, these 2 speed things up (esp with NERDTree) and I don't use them anyways
 set noshowcmd
 set noruler
 
@@ -160,6 +162,8 @@ require'nvim-web-devicons'.setup {
  -- will get overriden by `get_icons` option
  default = true;
 }
+
+require'nvim-tree'.setup()
 EOF
 
 lua <<EOF
@@ -202,8 +206,8 @@ nnoremap <silent> <Leader>q :lua require'telescope.builtin'.quickfix()<CR>
 " Clear the search buffer when hitting return
 :nnoremap <CR> :nohlsearch<cr>
 
-" Toggle NERDTree
-map <C-n> :NERDTreeToggle<CR>
+" Toggle NvimTree
+map <C-n> :NvimTreeToggle<CR>
 
 " LSP keyboard shortcuts
 nnoremap <silent> <c-p> <cmd>lua vim.lsp.buf.definition()<CR>
