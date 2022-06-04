@@ -9,6 +9,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lualine/lualine.nvim'
 
 " Completion
 Plug 'hrsh7th/nvim-cmp'
@@ -84,6 +85,7 @@ set shortmess+=c
 let g:completion_enable_auto_popup = 0
 " imap <Tab> <Plug>(completion_smart_tab)
 " imap <S-Tab> <Plug>(completion_smart_s_tab)
+
 
 " Setup nvim-cmp
 lua <<EOF
@@ -166,6 +168,36 @@ require'nvim-web-devicons'.setup {
 }
 
 require'nvim-tree'.setup()
+
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {},
+    always_divide_middle = true,
+    globalstatus = false,
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  extensions = {}
+}
 EOF
 
 lua <<EOF
