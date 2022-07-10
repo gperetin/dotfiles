@@ -3,14 +3,13 @@ syntax on
 call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'tpope/vim-fugitive'
-Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'gruvbox-community/gruvbox'
-Plug 'scrooloose/nerdtree'
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lualine/lualine.nvim'
 
 " Completion
 Plug 'hrsh7th/nvim-cmp'
@@ -20,13 +19,19 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'hrsh7th/cmp-cmdline'
 
+Plug 'TimUntersberger/neogit'
+
 " Needed for telescope
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
 
-call plug#end() " Apparently, these 2 speed things up (esp with NERDTree) and I don't use them anyways
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
+
+call plug#end()
+
+" Apparently, these 2 speed things up (esp with NERDTree) and I don't use them anyways
 set noshowcmd
 set noruler
 
@@ -81,6 +86,7 @@ let g:completion_enable_auto_popup = 0
 " imap <Tab> <Plug>(completion_smart_tab)
 " imap <S-Tab> <Plug>(completion_smart_s_tab)
 
+
 " Setup nvim-cmp
 lua <<EOF
   local cmp = require'cmp'
@@ -113,7 +119,7 @@ lua <<EOF
           fallback()
         end
       end,
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     },
 
     sources = cmp.config.sources({
@@ -160,6 +166,38 @@ require'nvim-web-devicons'.setup {
  -- will get overriden by `get_icons` option
  default = true;
 }
+
+require'nvim-tree'.setup()
+
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {},
+    always_divide_middle = true,
+    globalstatus = false,
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  extensions = {}
+}
 EOF
 
 lua <<EOF
@@ -202,8 +240,8 @@ nnoremap <silent> <Leader>q :lua require'telescope.builtin'.quickfix()<CR>
 " Clear the search buffer when hitting return
 :nnoremap <CR> :nohlsearch<cr>
 
-" Toggle NERDTree
-map <C-n> :NERDTreeToggle<CR>
+" Toggle NvimTree
+map <C-n> :NvimTreeToggle<CR>
 
 " LSP keyboard shortcuts
 nnoremap <silent> <c-p> <cmd>lua vim.lsp.buf.definition()<CR>

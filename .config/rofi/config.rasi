@@ -1,0 +1,9 @@
+configuration {
+    combi-modi: "window,drun,ssh,Sound output:~/bin/rofi_sound.py,:~/bin/rofi_power.sh";
+    modi: "combi";
+    font: "mono 22";
+}
+window {
+    width: 40%;
+}
+@theme "/home/goran/.local/share/rofi/themes/squared-material-red.rasi"
