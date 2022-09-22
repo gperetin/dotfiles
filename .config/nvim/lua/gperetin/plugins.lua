@@ -30,6 +30,37 @@ return require('packer').startup({
                 vim.cmd([[colorscheme gruvbox]])
             end
         })
+        use({
+            {
+                'nvim-treesitter/nvim-treesitter',
+                run = ':TSUpdate',
+                config = function()
+                    require'nvim-treesitter.configs'.setup {
+                      -- A list of parser names, or "all"
+                      ensure_installed = { "python", "lua", "rust", "html", "css" },
+
+                      -- Install parsers synchronously (only applied to `ensure_installed`)
+                      sync_install = false,
+
+                      -- Automatically install missing parsers when entering buffer
+                      auto_install = true,
+
+                      -- List of parsers to ignore installing (for "all")
+                      ignore_install = { "javascript" },
+
+                      ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+                      -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+
+                      highlight = {
+                        -- `false` will disable the whole extension
+                        enable = true,
+                    }}
+                end,
+            },
+            { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' },
+            { 'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter' },
+            { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' },
+        })
 
         use({
             'kyazdani42/nvim-web-devicons',
@@ -44,6 +75,43 @@ return require('packer').startup({
             config = function ()
                 require'alpha'.setup(require'alpha.themes.startify'.config)
             end
+        })
+
+        use({
+            {
+                'nvim-telescope/telescope.nvim', tag = '0.1.0',
+                config = function()
+                    local finders = require('telescope.builtin')
+                    local actions = require('telescope.actions')
+
+                    require('telescope').setup {
+                        defaults = {
+                            mappings = {
+                                i = {
+                                    ["<C-j>"] = actions.move_selection_next,
+                                    ["<C-k>"] = actions.move_selection_previous,
+                                }
+                            }
+                        }
+                    }
+
+                    vim.keymap.set('n', '<leader>f', function()
+                        local ok = pcall(finders.git_files, { show_untracked = true })
+                        if not ok then
+                            finders.find_files()
+                        end
+                    end)
+
+                end
+            },
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                after = 'telescope.nvim',
+                run = 'make',
+                config = function()
+                    require('telescope').load_extension('fzf')
+                end,
+            }
         })
 
         use({
@@ -94,7 +162,6 @@ return require('packer').startup({
             end,
             vim.keymap.set('n', '<C-n>', '<CMD>NvimTreeToggle<CR>')
         })
-
 
         use({
             'hrsh7th/nvim-cmp',
@@ -152,7 +219,6 @@ return require('packer').startup({
 
         use({
             'neovim/nvim-lspconfig',
-            event = 'BufRead',
             config = function()
                 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -162,6 +228,12 @@ return require('packer').startup({
                 require('lspconfig')['rust_analyzer'].setup {
                     capabilities = capabilities
                 }
+
+                vim.keymap.set('n', '<C-p>', vim.lsp.buf.definition)
+                vim.keymap.set('n', '<C-e>', vim.lsp.buf.hover)
+                vim.keymap.set('n', 'R', vim.lsp.buf.references)
+                vim.keymap.set('n', '<C-t>', vim.lsp.buf.rename)
+
             end,
             requires = {
                 {
