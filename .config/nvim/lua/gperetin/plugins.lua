@@ -6,14 +6,14 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 })
 
 local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
+    local fn = vim.fn
+    local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+    if fn.empty(fn.glob(install_path)) > 0 then
+        fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+        vim.cmd [[packadd packer.nvim]]
+        return true
+    end
+    return false
 end
 
 local packer_bootstrap = ensure_packer()
@@ -22,6 +22,8 @@ return require('packer').startup({
     function(use)
         use('wbthomason/packer.nvim')
         use('nvim-lua/plenary.nvim')
+        use('nvim-lua/popup.nvim')
+
         use({
             'ellisonleao/gruvbox.nvim',
             config = function()
@@ -36,26 +38,31 @@ return require('packer').startup({
                 run = ':TSUpdate',
                 config = function()
                     require'nvim-treesitter.configs'.setup {
-                      -- A list of parser names, or "all"
-                      ensure_installed = { "python", "lua", "rust", "html", "css" },
+                        -- A list of parser names, or "all"
+                        ensure_installed = { "python", "lua", "rust", "html", "css" },
 
-                      -- Install parsers synchronously (only applied to `ensure_installed`)
-                      sync_install = false,
+                        -- Install parsers synchronously (only applied to `ensure_installed`)
+                        sync_install = false,
 
-                      -- Automatically install missing parsers when entering buffer
-                      auto_install = true,
+                        -- Automatically install missing parsers when entering buffer
+                        auto_install = true,
 
-                      -- List of parsers to ignore installing (for "all")
-                      ignore_install = { "javascript" },
+                        -- List of parsers to ignore installing (for "all")
+                        ignore_install = { "javascript" },
 
-                      ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-                      -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+                        ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+                        -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
 
-                      highlight = {
-                        -- `false` will disable the whole extension
-                        enable = true,
-                    }}
-                end,
+                        highlight = {
+                            -- `false` will disable the whole extension
+                            enable = true,
+                        },
+                        indent = {
+                            enable = true
+                        }
+                    }
+
+                end
             },
             { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' },
             { 'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter' },
@@ -102,6 +109,10 @@ return require('packer').startup({
                         end
                     end)
 
+                    vim.keymap.set('n', '<leader>d', function()
+                        finders.diagnostics({bufnr=0})
+                    end)
+
                 end
             },
             {
@@ -126,7 +137,7 @@ return require('packer').startup({
                         section_separators = { left = '', right = ''},
                         disabled_filetypes = {},
                         always_divide_middle = true,
-                        globalstatus = false,
+globalstatus = false,
                     },
                     sections = {
                         lualine_a = {'mode'},
@@ -163,57 +174,74 @@ return require('packer').startup({
             vim.keymap.set('n', '<C-n>', '<CMD>NvimTreeToggle<CR>')
         })
 
+        use('hrsh7th/cmp-path')
+        use('hrsh7th/cmp-buffer')
+        use('hrsh7th/cmp-nvim-lsp')
+
         use({
             'hrsh7th/nvim-cmp',
             config = function()
                 local cmp = require'cmp'
                 cmp.setup {
                     mapping = {
-                      ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-                      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-                      ['<C-c>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-                      ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-                      ['<C-e>'] = cmp.mapping({
-                        i = cmp.mapping.abort(),
-                        c = cmp.mapping.close(),
-                      }),
+                        ['<C-j>'] = cmp.mapping.select_next_item(),
+                        ['<C-k>'] = cmp.mapping.select_prev_item(),
+                        ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+                        ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+                        ['<C-c>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+                        ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+                        ['<C-e>'] = cmp.mapping({
+                            i = cmp.mapping.abort(),
+                            c = cmp.mapping.close(),
+                        }),
 
-                      -- From TJ Devries, https://github.com/tjdevries/config_manager/blob/master/xdg_config/nvim/after/plugin/completion.lua#L69
-                      -- If you want tab completion
-                      -- First you have to just promise to read `:help ins-completion`.
-                      ["<Tab>"] = function(fallback)
-                        if cmp.visible() then
-                          cmp.select_next_item()
-                        else
-                          fallback()
-                        end
-                      end,
-                      ["<S-Tab>"] = function(fallback)
-                        if cmp.visible() then
-                          cmp.select_prev_item()
-                        else
-                          fallback()
-                        end
-                      end,
-                      ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                        -- From TJ Devries, https://github.com/tjdevries/config_manager/blob/master/xdg_config/nvim/after/plugin/completion.lua#L69
+                        -- If you want tab completion
+                        -- First you have to just promise to read `:help ins-completion`.
+                        ["<Tab>"] = function(fallback)
+                            if cmp.visible() then
+                                cmp.select_next_item()
+                            else
+                                fallback()
+                            end
+                        end,
+                        ["<S-Tab>"] = function(fallback)
+                            if cmp.visible() then
+                                cmp.select_prev_item()
+                            else
+                                fallback()
+                            end
+                        end,
+                        ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                     },
 
                     sources = cmp.config.sources({
                         { name = 'nvim_lsp' },
                         { name = 'path' },
-                    }, {
                         { name = 'buffer', keyword_length = 4 },
-                    })
+                    }),
+
+                    window = {
+                        -- documentation = false,
+                        documentation = {
+                            border = "rounded",
+                            -- winhighlight = "NormalFloat:Pmenu,NormalFloat:Pmenu,CursorLine:PmenuSel,Search:None",
+                        },
+                        completion = {
+                            border = "rounded",
+                            -- winhighlight = "NormalFloat:Pmenu,NormalFloat:Pmenu,CursorLine:PmenuSel,Search:None",
+                        },
+                    }
 
                 }
 
                 cmp.setup.cmdline(':', {
                     sources = cmp.config.sources({
-                      { name = 'path' }
+                        { name = 'path' }
                     }, {
-                      { name = 'cmdline', keyword_length = 3 }
-                    })
-                  })
+                            { name = 'cmdline', keyword_length = 3 }
+                        })
+                })
             end
         })
 
@@ -233,14 +261,53 @@ return require('packer').startup({
                 vim.keymap.set('n', '<C-e>', vim.lsp.buf.hover)
                 vim.keymap.set('n', 'R', vim.lsp.buf.references)
                 vim.keymap.set('n', '<C-t>', vim.lsp.buf.rename)
+                vim.keymap.set('n', '<C-d>', vim.diagnostic.open_float)
+
+                local icons = require "gperetin.icons"
+                local signs = {
+                    { name = "DiagnosticSignError", text = icons.diagnostics.Error },
+                    { name = "DiagnosticSignWarn", text = icons.diagnostics.Warning },
+                    { name = "DiagnosticSignHint", text = icons.diagnostics.Hint },
+                    { name = "DiagnosticSignInfo", text = icons.diagnostics.Information },
+                }
+                for _, sign in ipairs(signs) do
+                    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+                end
+
+                vim.diagnostic.config({
+                    virtual_text = false,
+                    signs = {
+                        active = signs
+                    },
+                    severity_sort = true,
+                    float = {
+                        focusable = false,
+                        source = "always",  -- Or "if_many"
+                    },
+                })
 
             end,
             requires = {
                 {
-                    -- WARN: Unfortunately we won't be able to lazy load this
                     'hrsh7th/cmp-nvim-lsp',
                 },
             },
+        })
+
+        use('nvim-neotest/neotest-python')
+        use('nvim-neotest/neotest-plenary')
+        use({
+            'nvim-neotest/neotest',
+            config = function()
+                require("neotest").setup({
+                    adapters = {
+                        require("neotest-python")({
+                            dap = { justMyCode = false },
+                        }),
+                        require("neotest-plenary")
+                    },
+                })
+            end
         })
 
         if packer_bootstrap then
