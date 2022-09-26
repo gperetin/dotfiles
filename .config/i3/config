@@ -128,10 +128,10 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # Workspace assignments
 assign [class="ibcalpha-ibc-IbcGateway"] 4
 
-workspace $ws1 output DP-0 primary
-workspace $ws2 output HDMI-0
-workspace $ws3 output DP-0 primary
-workspace $ws4 output DP-0 primary
+workspace $ws1 output DP-4 primary
+workspace $ws2 output DP-2
+workspace $ws3 output DP-6 primary
+workspace $ws4 output DP-2 primary
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
