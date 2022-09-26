@@ -66,7 +66,6 @@ return require('packer').startup({
             },
             { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' },
             { 'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter' },
-            { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' },
         })
 
         use({
@@ -98,7 +97,12 @@ return require('packer').startup({
                                     ["<C-j>"] = actions.move_selection_next,
                                     ["<C-k>"] = actions.move_selection_previous,
                                 }
+                            },
+                            layout_config = {
+                                width = 148,
+                                preview_width = 0.6
                             }
+
                         }
                     }
 
@@ -109,9 +113,8 @@ return require('packer').startup({
                         end
                     end)
 
-                    vim.keymap.set('n', '<leader>d', function()
-                        finders.diagnostics({bufnr=0})
-                    end)
+                    vim.keymap.set('n', '<leader>d', function() finders.diagnostics({bufnr=0}) end)
+                    vim.keymap.set('n', '<C-p>', function() finders.lsp_definitions({jump_type='vsplit'}) end)
 
                 end
             },
@@ -177,10 +180,19 @@ globalstatus = false,
         use('hrsh7th/cmp-path')
         use('hrsh7th/cmp-buffer')
         use('hrsh7th/cmp-nvim-lsp')
+        use('ray-x/lsp_signature.nvim')
+        use('onsails/lspkind.nvim')
 
         use({
             'hrsh7th/nvim-cmp',
             config = function()
+                require "lsp_signature".setup({
+                    floating_window = false,
+                    hint_prefix = ' ',
+                })
+
+                local lspkind = require('lspkind')
+
                 local cmp = require'cmp'
                 cmp.setup {
                     mapping = {
@@ -221,16 +233,20 @@ globalstatus = false,
                         { name = 'buffer', keyword_length = 4 },
                     }),
 
-                    window = {
-                        -- documentation = false,
-                        documentation = {
-                            border = "rounded",
-                            -- winhighlight = "NormalFloat:Pmenu,NormalFloat:Pmenu,CursorLine:PmenuSel,Search:None",
-                        },
-                        completion = {
-                            border = "rounded",
-                            -- winhighlight = "NormalFloat:Pmenu,NormalFloat:Pmenu,CursorLine:PmenuSel,Search:None",
-                        },
+                    completion = {
+                        keyword_length = 2
+                    },
+
+                    formatting = {
+                        format = lspkind.cmp_format({
+                            mode = 'symbol_text',
+                            maxwidth = 50, -- prevent the popup from showing more than provided characters
+                            ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+                        })
+                    },
+
+                    experimental = {
+                        native_menu = false,
                     }
 
                 }
@@ -257,22 +273,11 @@ globalstatus = false,
                     capabilities = capabilities
                 }
 
-                vim.keymap.set('n', '<C-p>', vim.lsp.buf.definition)
+                -- vim.keymap.set('n', '<C-p>', vim.lsp.buf.definition)
                 vim.keymap.set('n', '<C-e>', vim.lsp.buf.hover)
                 vim.keymap.set('n', 'R', vim.lsp.buf.references)
                 vim.keymap.set('n', '<C-t>', vim.lsp.buf.rename)
                 vim.keymap.set('n', '<C-d>', vim.diagnostic.open_float)
-
-                local icons = require "gperetin.icons"
-                local signs = {
-                    { name = "DiagnosticSignError", text = icons.diagnostics.Error },
-                    { name = "DiagnosticSignWarn", text = icons.diagnostics.Warning },
-                    { name = "DiagnosticSignHint", text = icons.diagnostics.Hint },
-                    { name = "DiagnosticSignInfo", text = icons.diagnostics.Information },
-                }
-                for _, sign in ipairs(signs) do
-                    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-                end
 
                 vim.diagnostic.config({
                     virtual_text = false,
@@ -293,6 +298,13 @@ globalstatus = false,
                 },
             },
         })
+
+        use {
+            'numToStr/Comment.nvim',
+            config = function()
+                require('Comment').setup()
+            end
+        }
 
         use('nvim-neotest/neotest-python')
         use('nvim-neotest/neotest-plenary')
