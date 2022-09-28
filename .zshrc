@@ -2,15 +2,6 @@
 # Don't use suspend
 stty stop ^-
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# Created by newuser for 5.6.2
-
 autoload -Uz compinit promptinit
 compinit
 promptinit
@@ -91,26 +82,15 @@ bindkey "^F" forward-word
 # Autojump
 [ -f /etc/profile.d/autojump.zsh ] && source /etc/profile.d/autojump.zsh
 
-# Base16 Shell
-# BASE16_SHELL="$HOME/.config/base16-shell/"
-# [ -n "$PS1" ] && \
-#     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-#         eval "$("$BASE16_SHELL/profile_helper.sh")"
-# base16_atelier-dune
-
 # Use fzf for Ctrl-R search
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 # Use fzf for completion
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
-# On Mac, somehow I got both of the above by sourcing this
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # Alias to quickly view file
 alias vf="fzf --bind 'ctrl-v:execute(vim {})+abort' --preview 'bat --style=numbers --color=always {}' --preview-window up:70%"
 
 alias e="nvim"
-alias eb="cd ~/Code/barney; source env/bin/activate"
 
 # Use git ls-tree for fast search in a git repo
 export FZF_DEFAULT_COMMAND='
@@ -122,7 +102,12 @@ export FZF_DEFAULT_COMMAND='
 if [[ -s "${ZDORDIR:-$HOME}/.zshrc.local" ]]; then
   source "${ZDORDIR:-$HOME}/.zshrc.local"
 fi
-source ~/powerlevel10k/powerlevel10k.zsh-theme
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/goran/google-cloud-sdk/path.zsh.inc' ]; then . '/home/goran/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/goran/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/goran/google-cloud-sdk/completion.zsh.inc'; fi
+
+eval "$(direnv hook zsh)"
+eval "$(starship init zsh)"
