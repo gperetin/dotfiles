@@ -1,0 +1,95 @@
+format = """
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$git_metrics\
+${custom.prod_env}\
+${custom.dev_env}\
+$jobs\
+$fill\
+$cmd_duration\
+$python\
+$line_break\
+$character\
+"""
+
+[directory]
+truncate_to_repo = false
+read_only = " "
+style = "bold blue"
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+[jobs]
+symbol = ""
+
+[custom.prod_env]
+command = "echo PROD"
+when = """ [ $APP_ENV = "PROD" ] """
+style = "fg:#ff00ff bold"
+
+[custom.dev_env]
+command = "echo DEV"
+when = """ [ $APP_ENV = "DEV" ] """
+style = "green bold"
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[memory_usage]
+symbol = " "
+
+[nim]
+symbol = " "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[package]
+symbol = " "
+
+[python]
+symbol = " "
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+
+[rlang]
+symbol = "ﳒ "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[spack]
+symbol = "🅢 "
