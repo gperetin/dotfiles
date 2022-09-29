@@ -1,4 +1,2 @@
 #!/bin/sh
-
-# DP3 and DP1 are 27" monitors, DP1 is directly below DP3. eDP1 is a 4K laptop screen that sits to the right of DP1
-xrandr --output VIRTUAL1 --off --output DP3 --scale 2x2 --mode 2560x1440 --fb 8960x5760 --pos 0x0 --rotate normal --output DP1 --scale 2x2 --mode 2560x1440 --pos 0x2880 --rotate normal --output eDP1 --primary --mode 3840x2160 --pos 5120x3600 --rotate normal --output DP2 --off
+xrandr --output DP-0 --mode 2560x1440 --pos 4000x0 --rotate right --rate 165.08 --output DP-1 --off --output HDMI-0 --off --output DP-2 --mode 2560x1440 --pos 0x0 --rotate left --rate 165.08 --output DP-3 --off --output HDMI-1 --off --output DP-4 --primary --mode 2560x1440 --pos 1440x560 --rotate normal --rate 165.08 --output DP-5 --off
