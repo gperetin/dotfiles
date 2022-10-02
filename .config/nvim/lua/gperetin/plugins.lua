@@ -101,8 +101,10 @@ return require('packer').startup({
                             layout_config = {
                                 width = 148,
                                 preview_width = 0.6
-                            }
-
+                            },
+                            prompt_prefix = "   ",
+                            selection_caret = "  ",
+                            entry_prefix = "  ",
                         }
                     }
 
@@ -116,7 +118,6 @@ return require('packer').startup({
                     vim.keymap.set('n', '<leader>d', function() finders.diagnostics({bufnr=0}) end)
                     vim.keymap.set('n', '<leader>b', function() finders.buffers() end)
                     vim.keymap.set('n', '<C-p>', function() finders.lsp_definitions({jump_type='vsplit'}) end)
-
                 end
             },
             {
