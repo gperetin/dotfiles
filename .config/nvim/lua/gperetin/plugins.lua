@@ -118,6 +118,7 @@ return require('packer').startup({
                     vim.keymap.set('n', '<leader>d', function() finders.diagnostics({bufnr=0}) end)
                     vim.keymap.set('n', '<leader>b', function() finders.buffers() end)
                     vim.keymap.set('n', '<C-p>', function() finders.lsp_definitions({jump_type='vsplit'}) end)
+                    vim.keymap.set('n', 'R', function() finders.lsp_references() end)
                 end
             },
             {
@@ -277,7 +278,6 @@ globalstatus = false,
 
                 -- vim.keymap.set('n', '<C-p>', vim.lsp.buf.definition)
                 vim.keymap.set('n', '<C-e>', vim.lsp.buf.hover)
-                vim.keymap.set('n', 'R', vim.lsp.buf.references)
                 vim.keymap.set('n', '<C-t>', vim.lsp.buf.rename)
                 vim.keymap.set('n', '<C-d>', vim.diagnostic.open_float)
 
@@ -305,6 +305,13 @@ globalstatus = false,
             'numToStr/Comment.nvim',
             config = function()
                 require('Comment').setup()
+            end
+        }
+
+        use {
+            'lewis6991/gitsigns.nvim',
+            config = function()
+                require('gitsigns').setup()
             end
         }
 
