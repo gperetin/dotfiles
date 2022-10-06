@@ -25,13 +25,50 @@ return require('packer').startup({
         use('nvim-lua/popup.nvim')
 
         use({
-            'ellisonleao/gruvbox.nvim',
+            'folke/tokyonight.nvim',
             config = function()
-                require("gruvbox").setup()
+                require("tokyonight").setup({
+                    styles = {
+                        keywords = { italic = false },
+                    },
+                    on_highlights = function(hl, c)
+                        local prompt = "#2d3149"
+                        hl.TelescopeNormal = {
+                            bg = c.bg_dark,
+                            fg = c.fg_dark,
+                        }
+                        hl.TelescopeBorder = {
+                            bg = c.bg_dark,
+                            fg = c.bg_dark,
+                        }
+                        hl.TelescopePromptNormal = {
+                            bg = prompt,
+                        }
+                        hl.TelescopePromptBorder = {
+                            bg = prompt,
+                            fg = prompt,
+                        }
+                        hl.TelescopePromptTitle = {
+                            bg = prompt,
+                            fg = prompt,
+                        }
+                        hl.TelescopePreviewTitle = {
+                            bg = c.bg_dark,
+                            fg = c.bg_dark,
+                        }
+                        hl.TelescopeResultsTitle = {
+                            bg = c.bg_dark,
+                            fg = c.bg_dark,
+                        }
+                    end,
+                })
+
                 vim.o.background = "dark"
-                vim.cmd([[colorscheme gruvbox]])
+                vim.cmd([[colorscheme tokyonight]])
+
             end
         })
+
         use({
             {
                 'nvim-treesitter/nvim-treesitter',
@@ -315,7 +352,7 @@ globalstatus = false,
             end
         }
 
-        use { 'TimUntersberger/neogit', 
+        use { 'TimUntersberger/neogit',
             requires = 'nvim-lua/plenary.nvim',
             config = function()
                 require('neogit').setup({
