@@ -315,6 +315,15 @@ globalstatus = false,
             end
         }
 
+        use { 'TimUntersberger/neogit', 
+            requires = 'nvim-lua/plenary.nvim',
+            config = function()
+                require('neogit').setup({
+                    auto_refresh = true,
+                })
+            end
+        }
+
         use('nvim-neotest/neotest-python')
         use('nvim-neotest/neotest-plenary')
         use({

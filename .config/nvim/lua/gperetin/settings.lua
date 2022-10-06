@@ -38,3 +38,10 @@ o.splitright = true
 -- Disable these as we're using nvim-tree
 g.loaded = 1
 g.loaded_netrwPlugin = 1
+
+
+-- Remove trailing whitespace
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  pattern = { "*" },
+  command = [[%s/\s\+$//e]],
+})
