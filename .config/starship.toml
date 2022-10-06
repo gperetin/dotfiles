@@ -7,7 +7,7 @@ $git_metrics\
 ${custom.prod_env}\
 ${custom.dev_env}\
 $jobs\
-$fill\
+$fill \
 $cmd_duration\
 $python\
 $line_break\
@@ -21,7 +21,12 @@ style = "bold blue"
 format = "[$path]($style)[$read_only]($read_only_style) "
 
 [jobs]
-symbol = ""
+symbol = ""
+style = "bold red"
+
+[fill]
+symbol = ""
+style = "#bb9af7"
 
 [custom.prod_env]
 command = "echo PROD"
@@ -80,7 +85,9 @@ symbol = " "
 
 [python]
 symbol = " "
-format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+detect_files = []
+detect_extensions = []
+format = '[${symbol}${pyenv_prefix}(${version})]($style)'
 
 [rlang]
 symbol = "ﳒ "
