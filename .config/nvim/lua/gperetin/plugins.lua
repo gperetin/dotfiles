@@ -103,6 +103,7 @@ return require('packer').startup({
             },
             { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' },
             { 'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter' },
+            { 'nvim-treesitter/nvim-treesitter-context', after = 'nvim-treesitter' },
         })
 
         use({
