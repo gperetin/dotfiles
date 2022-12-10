@@ -75,6 +75,7 @@ keys = [
 
     # My key bindings
     Key(["control"], "space", lazy.spawn("rofi -show-icons -show combi")),
+    Key([mod, "shift"], "s", lazy.spawn("scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'")),
     Key([mod], "s", lazy.group['scratchpad'].dropdown_toggle('term')),
     Key([mod], "r", lazy.group['scratchpad'].dropdown_toggle('ranger')),
     Key([mod], "d", lazy.group['scratchpad'].dropdown_toggle('zeal')),
