@@ -146,17 +146,23 @@ return require('packer').startup({
                         }
                     }
 
-                    vim.keymap.set('n', '<leader>f', function()
-                        local ok = pcall(finders.git_files, { show_untracked = true })
-                        if not ok then
-                            finders.find_files()
-                        end
-                    end)
 
-                    vim.keymap.set('n', '<leader>d', function() finders.diagnostics({bufnr=0}) end)
-                    vim.keymap.set('n', '<leader>b', function() finders.buffers() end)
-                    vim.keymap.set('n', '<C-p>', function() finders.lsp_definitions({jump_type='vsplit'}) end)
-                    vim.keymap.set('n', 'R', function() finders.lsp_references() end)
+                    local wk = require("which-key")
+                    wk.register({
+                        ["<leader>f"] = { function()
+                            local ok = pcall(finders.git_files, { show_untracked = true })
+                            if not ok then
+                                finders.find_files()
+                            end
+                        end, "Find File"
+                        },
+                        ["<leader>d"] = { function() finders.diagnostics({bufnr=0}) end, "Buffer Diagnostics" },
+                        ["<leader>b"] = { function() finders.buffers() end, "Buffers" },
+                        ["<leader>g"] = { function() finders.live_grep() end, "Live Grep" },
+                        ["<leader>c"] = { name = "+code" },
+                        ["<leader>cp"] = { function() finders.lsp_definitions({jump_type='vsplit'}) end, "Jump to definition" },
+                        ["<leader>cr"] = { function() finders.lsp_references() end, "References" },
+                    })
                 end
             },
             {
@@ -167,6 +173,15 @@ return require('packer').startup({
                     require('telescope').load_extension('fzf')
                 end,
             }
+        })
+
+        use ({
+            "folke/which-key.nvim",
+            config = function()
+                require("which-key").setup {
+                    -- your configuration comes here
+                }
+            end
         })
 
         use({
