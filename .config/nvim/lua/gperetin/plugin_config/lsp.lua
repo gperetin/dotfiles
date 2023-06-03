@@ -81,7 +81,6 @@ local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
 
-
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 require('lspconfig')['pyright'].setup {
@@ -91,10 +90,13 @@ require('lspconfig')['rust_analyzer'].setup {
     capabilities = capabilities
 }
 
--- vim.keymap.set('n', '<C-p>', vim.lsp.buf.definition)
-vim.keymap.set('n', '<C-e>', vim.lsp.buf.hover)
-vim.keymap.set('n', '<C-t>', vim.lsp.buf.rename)
-vim.keymap.set('n', '<C-d>', vim.diagnostic.open_float)
+local ruff_on_attach = function(client, bufnr)
+  -- Disable hover in favor of Pyright
+  client.server_capabilities.hoverProvider = false
+end
+require('lspconfig').ruff_lsp.setup {
+    on_attach = ruff_on_attach
+}
 
 vim.diagnostic.config({
     virtual_text = false,

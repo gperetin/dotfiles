@@ -1,4 +1,3 @@
-local finders = require('telescope.builtin')
 local actions = require('telescope.actions')
 
 require('telescope').setup {
@@ -27,22 +26,5 @@ require('telescope').setup {
         entry_prefix = "  ",
     }
 }
-
-local wk = require("which-key")
-wk.register({
-    ["<leader>f"] = { function()
-        local ok = pcall(finders.git_files, { show_untracked = true })
-        if not ok then
-            finders.find_files()
-        end
-    end, "Find File"
-    },
-    ["<leader>d"] = { function() finders.diagnostics({bufnr=0}) end, "Buffer Diagnostics" },
-    ["<leader>b"] = { function() finders.buffers() end, "Buffers" },
-    ["<leader>g"] = { function() finders.live_grep() end, "Live Grep" },
-    ["<leader>c"] = { name = "+code" },
-    ["<leader>cp"] = { function() finders.lsp_definitions({jump_type='vsplit'}) end, "Jump to definition" },
-    ["<leader>cr"] = { function() finders.lsp_references() end, "References" },
-})
 
 require('telescope').load_extension('fzf')

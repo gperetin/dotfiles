@@ -36,7 +36,9 @@ local plugins = {
     'lewis6991/gitsigns.nvim',
     'TimUntersberger/neogit',
     {'nvim-neotest/neotest', dependencies = {{'nvim-neotest/neotest-python'}}},
+    {"williamboman/mason.nvim", build = ":MasonUpdate"},  -- :MasonUpdate updates registry contents
 }
+
 
 local opts = {}
 require("lazy").setup(plugins, opts)
@@ -146,3 +148,6 @@ require("neotest").setup({
         }),
     },
 })
+
+-- Mason
+require("mason").setup()
