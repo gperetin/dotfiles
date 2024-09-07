@@ -243,7 +243,7 @@ exec_always feh --bg-scale /home/goran/Misc/space3.jpg /home/goran/Misc/galaxy.j
 exec --no-startup-id dunst
 
 # Pulse Audio controls
-bindcode 115 exec --no-startup-id pulseaudio-control up #increase sound volume
+bindcode 115 exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
