@@ -20,7 +20,7 @@ font-3 = "Font Awesome 6 Free:style=Solid:size=10;1"
 font-4 = "Font Awesome 6 Brands:style=Regular:size=10;1"
 
 modules-left = i3
-modules-right = backlight battery pulseaudio wireless-network date
+modules-right = backlight battery pulseaudio-control-output pulseaudio-control-input wireless-network date
 
 [module/i3]
 type = internal/i3
