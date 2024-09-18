@@ -35,7 +35,10 @@ local plugins = {
     'numToStr/Comment.nvim',
     'lewis6991/gitsigns.nvim',
     'TimUntersberger/neogit',
-    {'nvim-neotest/neotest', dependencies = {{'nvim-neotest/neotest-python'}}},
+    {'nvim-neotest/neotest', dependencies = {{
+        'nvim-neotest/neotest-python',
+        'nvim-neotest/nvim-nio'
+    }}},
     {"williamboman/mason.nvim", build = ":MasonUpdate"},  -- :MasonUpdate updates registry contents
 }
 
