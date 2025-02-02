@@ -25,5 +25,3 @@ end
 vim.api.nvim_set_keymap('i', '<C-j>', 'v:lua.smart_nav_down()', {expr = true, noremap = true})
 vim.api.nvim_set_keymap('i', '<C-k>', 'v:lua.smart_nav_up()', {expr = true, noremap = true})
 
-
-
