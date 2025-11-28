@@ -83,20 +83,21 @@ cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-require('lspconfig')['pyright'].setup {
+vim.lsp.config('pyright', {
     capabilities = capabilities
-}
-require('lspconfig')['rust_analyzer'].setup {
+})
+
+vim.lsp.config('rust_analyzer'], {
     capabilities = capabilities
-}
+})
 
 local ruff_on_attach = function(client, bufnr)
   -- Disable hover in favor of Pyright
   client.server_capabilities.hoverProvider = false
 end
-require('lspconfig').ruff_lsp.setup {
+vim.lsp.config('ruff', {
     on_attach = ruff_on_attach
-}
+})
 
 vim.diagnostic.config({
     virtual_text = false,
