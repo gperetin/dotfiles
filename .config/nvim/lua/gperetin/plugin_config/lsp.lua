@@ -87,7 +87,7 @@ vim.lsp.config('pyright', {
     capabilities = capabilities
 })
 
-vim.lsp.config('rust_analyzer'], {
+vim.lsp.config('rust_analyzer', {
     capabilities = capabilities
 })
 
