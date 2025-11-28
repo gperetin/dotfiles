@@ -86,10 +86,12 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 vim.lsp.config('pyright', {
     capabilities = capabilities
 })
+vim.lsp.enable('pyright')
 
 vim.lsp.config('rust_analyzer', {
     capabilities = capabilities
 })
+vim.lsp.enable('rust_analyzer')
 
 local ruff_on_attach = function(client, bufnr)
   -- Disable hover in favor of Pyright
@@ -98,6 +100,7 @@ end
 vim.lsp.config('ruff', {
     on_attach = ruff_on_attach
 })
+vim.lsp.enable('ruff')
 
 vim.diagnostic.config({
     virtual_text = false,
