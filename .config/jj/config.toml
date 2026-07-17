@@ -3,7 +3,7 @@ name = "Goran Peretin"
 email = "goran.peretin@gmail.com"
 
 [aliases]
-tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"];
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
 
 [ui]
 default-command = "status"
