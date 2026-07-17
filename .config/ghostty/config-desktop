@@ -1,0 +1,18 @@
+font-family = Hack Nerd Font Mono
+font-size = 12
+
+# Bundled Ghostty theme; it provides foreground, background, and ANSI colors.
+theme = Catppuccin Mocha
+
+cursor-style = block
+mouse-hide-while-typing = false
+scrollback-limit = 10000000
+copy-on-select = false
+window-decoration = true
+window-width = 80
+window-height = 24
+window-padding-x = 5
+window-padding-y = 5
+
+# Retain Alacritty's custom Ctrl-S binding (send Ctrl-Z).
+keybind = ctrl+s=text:\x1a
