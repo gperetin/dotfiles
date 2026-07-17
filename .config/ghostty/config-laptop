@@ -5,6 +5,9 @@ font-size = 9
 theme = Catppuccin Mocha
 
 cursor-style = block
+cursor-style-blink = false
+# Keep Ghostty shell integration, but do not let it switch the prompt cursor to a bar.
+shell-integration-features = no-cursor
 mouse-hide-while-typing = false
 scrollback-limit = 10000000
 copy-on-select = false
