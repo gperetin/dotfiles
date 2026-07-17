@@ -8,10 +8,10 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 if type "xrandr"; then
   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    MONITOR=$m polybar top &
+    MONITOR=$m polybar -c "${XDG_CONFIG_HOME:-$HOME/.config}/polybar/config.ini" top &
   done
 else
-  polybar top &
+  polybar -c "${XDG_CONFIG_HOME:-$HOME/.config}/polybar/config.ini" top &
 fi
 
 echo "Polybar launched..."
