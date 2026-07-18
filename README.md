@@ -3,11 +3,11 @@ Some docs for myself for next time I have to install and configure Arch Linux.
 The install setup is LVM on LUKS, https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_an_entire_system#LVM_on_LUKS
 
 Each item in the list is a package, with some notes if needed. It's best to
-install vim and terminal emulator (alacritty in this case) during the install,
+install vim and terminal emulator (Ghostty in this case) during the install,
 otherwise, when booted into i3, there's no way to launch a terminal
 (i3-sensible-terminal doesn't evaluate to anything).
 
-* alacritty
+* ghostty
 * zsh
   * base_atelier_dune is the theme I use
   * install instructions here https://github.com/chriskempson/base16-shell

@@ -10,7 +10,8 @@ cursor-style-blink = false
 shell-integration-features = no-cursor
 mouse-hide-while-typing = false
 scrollback-limit = 10000000
-copy-on-select = false
+# Copy a selection immediately; middle-click then pastes the selection.
+copy-on-select = true
 window-decoration = true
 window-width = 80
 window-height = 24
