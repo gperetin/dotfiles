@@ -8,3 +8,4 @@ tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
 [ui]
 default-command = "status"
 pager = "delta"
+editor = "vim"
