@@ -7,5 +7,11 @@ tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
 
 [ui]
 default-command = "status"
-pager = "delta"
+pager = ["delta", "--side-by-side"]
 editor = "vim"
+
+[ui.diff]
+format = "git"
+
+[revsets]
+log = "latest(::@ | trunk(), 10)"
