@@ -1,0 +1,28 @@
+{
+  "plugins": {
+    "catppuccin": {
+      "rev": "05e8787020dcfdb937bf2ff23855ea2415b4e072",
+      "src": "https://github.com/catppuccin/nvim"
+    },
+    "codediff.nvim": {
+      "rev": "2253030fc17c8356a2ff1026f25cb9b570bdd91f",
+      "src": "https://github.com/esmuellert/codediff.nvim"
+    },
+    "mini.nvim": {
+      "rev": "9459d7f41ae77d909579dab0aea2bdd3210fac9f",
+      "src": "https://github.com/echasnovski/mini.nvim"
+    },
+    "nvim-treesitter": {
+      "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "plenary.nvim": {
+      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "telescope.nvim": {
+      "rev": "427b576c16792edad01a92b89721d923c19ad60f",
+      "src": "https://github.com/nvim-telescope/telescope.nvim"
+    }
+  }
+}

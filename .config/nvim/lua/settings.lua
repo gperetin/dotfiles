@@ -16,9 +16,9 @@ o.shiftwidth = 4
 o.tabstop = 4
 o.softtabstop = 4
 
-o.switchbuf = 'useopen'
+o.switchbuf = "useopen"
 o.showtabline = 0
-o.fileencoding = 'utf-8'
+o.fileencoding = "utf-8"
 o.gdefault = true
 
 o.backup = false
@@ -28,20 +28,18 @@ o.writebackup = false
 o.scrolloff = 3
 o.termguicolors = true
 
-o.completeopt = 'menuone,noinsert,noselect'
+o.completeopt = "menuone,noinsert,noselect"
+o.pummaxwidth = 80
+o.pumborder = "rounded"
+o.winborder = "rounded"
 
-o.clipboard = 'unnamedplus'
-o.mouse = 'a'
+o.clipboard = "unnamedplus"
+o.mouse = "a"
 
 o.splitright = true
 
--- Disable these as we're using nvim-tree
-g.loaded = 1
-g.loaded_netrwPlugin = 1
-
-
--- Remove trailing whitespace
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-  pattern = { "*" },
+-- Remove trailing whitespace on save.
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
   command = [[%s/\s\+$//e]],
 })
