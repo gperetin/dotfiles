@@ -16,8 +16,8 @@ module-margin = 2
 font-0 = NotoSans-Regular:size=10;3
 font-1 = MaterialIcons:size=14;5
 font-2 = Termsynu:size=10:antialias=false;3
-font-3 = "Font Awesome 6 Free:style=Solid:size=10;1"
-font-4 = "Font Awesome 6 Brands:style=Regular:size=10;1"
+font-3 = "Font Awesome 7 Free:style=Solid:size=10;1"
+font-4 = "Font Awesome 7 Brands:style=Regular:size=10;1"
 
 modules-left = i3
 modules-right = backlight battery pulseaudio-control-output pulseaudio-control-input wireless-network date
