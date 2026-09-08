@@ -99,17 +99,10 @@ require("mini.extra").setup()
 
 require("mini.completion").setup({
   delay = {
-    completion = 1000,
+    -- Debounce typing, including LSP trigger characters such as '.'.
+    completion = 100,
   },
-  lsp_completion = {
-    process_items = function(items, base)
-      local processed = MiniCompletion.default_process_items(items, base)
-      for _, item in ipairs(processed) do
-        item.labelDetails = nil
-      end
-      return processed
-    end,
-  },
+  -- Keep default LSP processing so labelDetails show type/module origins.
   window = {
     info = { border = "rounded" },
     signature = { border = "rounded" },

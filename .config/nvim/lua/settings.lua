@@ -29,7 +29,8 @@ o.scrolloff = 3
 o.termguicolors = true
 
 o.completeopt = "menuone,noinsert,noselect"
-o.pummaxwidth = 80
+-- Let completion paths use the available screen width instead of truncating at 80.
+o.pummaxwidth = 0
 o.pumborder = "rounded"
 o.winborder = "rounded"
 
