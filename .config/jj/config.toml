@@ -4,6 +4,7 @@ email = "goran.peretin@gmail.com"
 
 [aliases]
 tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
+l = ["log", "-r", "all()", "-n", "10"]
 
 [ui]
 default-command = "status"
@@ -15,3 +16,6 @@ format = "git"
 
 [revsets]
 log = "latest(::@ | trunk(), 10)"
+
+[git]
+fetch = "*"
