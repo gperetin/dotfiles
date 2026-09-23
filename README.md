@@ -68,3 +68,8 @@ otherwise, when booted into i3, there's no way to launch a terminal
 ## Other
 
 If dual booting with Windows, and there are issues with wifi being loaded during boot time, it's a [known issue](https://bugzilla.kernel.org/show_bug.cgi?id=201319) and solution is to turn off Fast Boot in Windows, instructions [here](https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi#about_dual-boot_with_windows_and_fast-boot_enabled)
+
+
+## Testing
+
+This is just some change to test the review tool.
