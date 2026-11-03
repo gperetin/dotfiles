@@ -1,5 +1,6 @@
 font-family = Hack Nerd Font Mono
 font-size = 12
+adjust-cell-height = 10%
 
 # Bundled Ghostty theme; it provides foreground, background, and ANSI colors.
 theme = Catppuccin Mocha
