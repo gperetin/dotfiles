@@ -111,3 +111,7 @@ if [ -f '/home/goran/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/goran
 
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
+
+if command -v atuin >/dev/null 2>&1; then
+  eval "$(atuin init zsh)"
+fi
