@@ -22,7 +22,7 @@ font-3 = "Font Awesome 7 Free:style=Solid:size=10;1"
 font-4 = "Font Awesome 7 Brands:style=Regular:size=10;1"
 
 modules-left = i3
-modules-right = backlight battery pulseaudio wireless-network wired-network date
+modules-right = tray backlight battery pulseaudio wireless-network wired-network date
 
 [module/i3]
 type = internal/i3
@@ -200,6 +200,11 @@ card = amdgpu_bl0
 enable-scroll = true
 format = <label>
 label =  %percentage%%
+
+[module/tray]
+type = internal/tray
+tray-size = 66%
+tray-spacing = 8px
 
 [module/date]
 type = internal/date

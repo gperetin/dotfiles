@@ -27,7 +27,7 @@ font-3 = "Font Awesome 7 Free:style=Solid:size=10;1"
 font-4 = "Font Awesome 7 Brands:style=Regular:size=10;1"
 
 modules-left = i3
-modules-right = pulseaudio-control-output pulseaudio-control-input wireless-network wired-network date
+modules-right = tray pulseaudio-control-output pulseaudio-control-input wireless-network wired-network date
 
 [module/i3]
 type = internal/i3
@@ -156,6 +156,11 @@ click-left = pulseaudio-control --node-type input togmute
 click-middle = pulseaudio-control --node-blacklist "*.monitor" --node-type input next-node
 scroll-up = pulseaudio-control --node-type input --volume-max 130 up
 scroll-down = pulseaudio-control --node-type input --volume-max 130 down
+
+[module/tray]
+type = internal/tray
+tray-size = 66%
+tray-spacing = 8px
 
 [module/date]
 type = internal/date
